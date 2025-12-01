@@ -1,0 +1,186 @@
+/* --- Asosiy konteyner --- */
+.job-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 3em;
+  padding: 6.5em 20px;
+  font-family: 'Poppins', sans-serif;
+  min-height: 70vh;
+}
+
+/* --- Sarlavha --- */
+.job-title {
+  font-size: 30px;
+  font-weight: 700;
+  font-family:sans-serif;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* --- Ish o‘rinlari ro‘yxati --- */
+.job-list {
+  display: flex;
+  gap: 3em;
+  flex-wrap: wrap;
+  /* justify-content: ; */
+}
+
+/* --- Har bir ish kartasi --- */
+.job-card {
+  background: linear-gradient(135deg, #f6f6f6, #ffffff);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  max-width: 400px;
+  transition: all 0.3s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Ish kartasi sarlavhalari --- */
+.job-heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+.job-subheading {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.job-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* --- Ariza berish tugmasi --- */
+.apply-button {
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.apply-button:hover {
+  background: #0056b3;
+}
+
+/* --- Modal oyna --- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* --- Modal oynaning ichki qismi --- */
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* --- Modal ochilish animatsiyasi --- */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+/* --- Forma elementlari --- */
+form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px 0 5px;
+  color: #333;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* --- Modal tugmalari --- */
+form button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:first-of-type {
+  background: #007bff;
+  color: white;
+}
+
+form button:first-of-type:hover {
+  background: #0056b3;
+}
+
+form button:last-of-type {
+  background: #ccc;
+  color: black;
+  margin-left: 10px;
+}
+
+form button:last-of-type:hover {
+  background: #bbb;
+}
+
+/* --- Responsiv dizayn --- */
+@media (max-width: 768px) {
+  .job-list {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .modal-content {
+      max-width: 90%;
+  }
+}

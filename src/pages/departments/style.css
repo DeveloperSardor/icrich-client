@@ -1,0 +1,100 @@
+/* General Styles for the Department Page */
+.department-page {
+  /* background-image: url(../../assets/naqshhhh.jpg); */
+    min-height: 80vh;
+    padding: 6.5em 20px;
+    background-image: url(../../assets/department-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url(../../assets/naqsh-bg.jpg); */
+  }
+  
+  .department-page .container_ {
+    width: 90%;
+    max-width: 1200px; /* Restrict max width for large screens */
+    margin: 0 auto;
+    padding: 2.5em 4em;
+    box-sizing: border-box;
+  }
+  
+  .department-page .container_ .title__ {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 35px;
+    font-weight: 500;
+    line-height: 50px;
+    text-align: center; /* Center-align the page title */
+    margin-bottom: 2rem;
+    color: #333; /* Darker text for better readability */
+  }
+  
+  /* Cards Wrapper */
+  .department-page .cards_wrp {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+    gap: 2rem; /* Add spacing between cards */
+    /* justify-content: center; Center the cards horizontally */
+  }
+  
+  /* Individual Card Styles */
+  .department-card {
+    background-color: #f9f9f9; /* Light gray background */
+    border: 1px solid #ddd; /* Add a subtle border */
+    border-radius: 8px; /* Rounded corners */
+    width: calc(25% - 2rem); /* Four cards per row, adjust for gaps */
+    min-width: 250px; /* Minimum card width for smaller screens */
+    height: 260px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: space-between; /* Spread out content */
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .department-card:hover {
+    transform: translateY(-5px); /* Add hover effect */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .department-card img {
+    width: 100%;
+    height: 60%; /* Keep image proportionate */
+    object-fit: cover; /* Maintain image aspect ratio */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .department-card .title_ {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333; /* Dark text */
+    padding: 0.8rem 1rem;
+  }
+  
+  /* Responsive Design */
+  
+  /* For tablets (two cards per row) */
+  @media (max-width: 1024px) {
+    .department-card {
+      width: calc(50% - 2rem); /* Two cards per row */
+    }
+  }
+  
+  /* For mobile phones (one card per row) */
+  @media (max-width: 768px) {
+    .department-card {
+      width: calc(100% - 2rem); /* Full width for smaller screens */
+    }
+  
+    .department-page .container_ {
+      padding: 1.5em; /* Adjust padding for small screens */
+    }
+  
+    .department-page .container_ .title__ {
+      font-size: 28px; /* Smaller font size for title */
+      line-height: 36px;
+    }
+  }
+  

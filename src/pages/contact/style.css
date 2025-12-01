@@ -1,0 +1,139 @@
+/* Umumiy o'rnatmalar */
+.contact-wrapper {
+  padding: 6.5em 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Form va xarita bo'limlari */
+.form-section,
+.map-section {
+  flex: 1;
+  min-width: 400px;
+  padding: 20px;
+}
+
+/* Form bo'limi */
+.form-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-section label {
+  display: block;
+  margin-bottom: 15px;
+  color: #555;
+  font-size: 14px;
+}
+
+.form-section input,
+.form-section textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form-section textarea {
+  resize: none;
+  height: 100px;
+}
+
+.form-section button {
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.form-section button:hover {
+  background-color: #e66a00;
+}
+
+/* Xarita va ma'lumot bo'limi */
+.map-section iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+  border-radius: 8px;
+}
+
+.contact-info {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+  color: #555;
+}
+
+.contact-info p {
+  margin: 5px 0;
+}
+
+/* Responsivlik */
+@media (max-width: 768px) {
+  .contact-wrapper {
+      padding: 3em 20px;
+  }
+
+  .contact-container {
+      margin-top: 4em;
+      flex-direction: column;  /* Stack form and map vertically */
+  }
+
+  .form-section,
+  .map-section {
+      min-width: auto;  /* Remove min-width constraint */
+      padding: 15px;
+  }
+
+  .form-section input,
+  .form-section textarea,
+  .form-section button {
+      width: 100%;  /* Make form elements 100% width on small screens */
+  }
+
+  .form-section button {
+      width: 100%;  /* Ensure the button takes full width */
+  }
+
+  .map-section iframe {
+      height: 300px;  /* Increase map iframe height for better visibility on mobile */
+  }
+}
+
+/* Status messages */
+.status-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.status-message.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-message.error {
+  background-color: #f44336;
+  color: white;
+}

@@ -1,0 +1,131 @@
+/* Footer container */
+.footer {
+    background-color: #110600;
+    color: #fff;
+    padding: 2em 1em;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer-container {
+    display: flex;
+    width: 85%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2em;
+  }
+  
+  /* Footer logo section */
+  .footer-logo {
+    flex: 1 1 30%;
+    text-align: left;
+  }
+  
+  .footer-logo img {
+    margin-bottom: 1em;
+    width: 75px;
+    height: 75px;
+  }
+  
+  .footer-logo p {
+    margin: 0.3em 0;
+    color: #ddd;
+    font-size: 0.9rem;
+  }
+  
+  /* Footer links */
+  .footer-links {
+    flex: 1 1 20%;
+  }
+  
+  .footer-links h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1em;
+  }
+  .email_{
+    display: flex;
+    margin-top: 0.8em !important;
+    align-items: center;
+    font-size: 14px !important;
+    gap: 0.4em;
+  }
+  .exat_{
+    display: flex;
+    margin-top: 0.5em !important;
+    align-items: center;
+    font-size: 14px !important;
+    gap: 0.4em;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li {
+    margin-bottom: 0.5em;
+  }
+  
+  .footer-links a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: #f2a365;
+  }
+  
+  /* Footer social icons */
+  .footer-social {
+    flex: 1 1 20%;
+  }
+  
+  .footer-social h4 {
+    font-size: 1.2rem;
+    margin-bottom: 1em;
+  }
+  
+  .social-icons a {
+    color: #ddd;
+    font-size: 1.5rem;
+    margin-right: 1em;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #f2a365;
+  }
+  
+  /* Footer bottom section */
+  .footer-bottom {
+    margin-top: 2em;
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid #444;
+    padding-top: 1em;
+  }
+  
+  .footer-bottom a {
+    color: #f2a365;
+    text-decoration: none;
+  }
+  
+  .footer-bottom a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .footer-logo,
+    .footer-links,
+    .footer-social {
+      flex: 1 1 100%;
+    }
+  }
+  

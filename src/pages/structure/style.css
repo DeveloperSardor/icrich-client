@@ -1,0 +1,88 @@
+.structure-page {
+  padding: 8.5em 20px;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+.structure-page .container {
+  /* border: 1px solid #e0e0e0; */
+  width: 85%;
+  max-width: 1400px;
+  margin: 2em auto;
+  /* background: #fff; */
+  border-radius: 8px;
+  /* box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); */
+  padding: 25em 2em;
+  transition: all 0.3s ease;
+  overflow: visible;
+  position: relative;
+}
+
+.structure-page .container:hover {
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); */
+}
+
+.strc-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 500px;
+  margin: 10em auto;
+  border-radius: 6px;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+  /* background: #fff; */
+  object-fit: contain;
+}
+
+/* Responsiv dizayn uchun media qoidalar */
+@media (max-width: 1024px) {
+  .structure-page .container {
+    width: 90%;
+    padding: 1.5em;
+  }
+  
+  .strc-img {
+    width: 100%;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .structure-page {
+    padding: 5em 15px;
+  }
+  
+  .structure-page .container {
+    width: 95%;
+    margin: 1.5em auto;
+    padding: 1.2em;
+    border-radius: 6px;
+  }
+  
+  .strc-img {
+    border-radius: 4px;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .structure-page {
+    padding: 4em 10px;
+  }
+  
+  .structure-page .container {
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    padding: 1em;
+    border-radius: 4px;
+  }
+  
+  .strc-img {
+    border-radius: 3px;
+    min-height: 250px;
+  }
+}

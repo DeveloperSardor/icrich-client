@@ -1,0 +1,80 @@
+/* Container styling */
+.organization_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Title styling */
+  .organization_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Main block styling */
+  .main-block {
+    background-color: #ff9f43;
+    color: white;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Sub-blocks styling */
+  .sub-blocks {
+    display: flex;
+    flex-direction: column !important;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .sub-block {
+    background-color: #ffe8cc;
+    color: black;
+    width: 35%;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive styling for sub-blocks */
+  @media (min-width: 768px) {
+    .sub-blocks {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+  
+  /* Departments styling */
+  .departments {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .department {
+    background-color: #fff3e0;
+    color: black;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive styling for departments */
+  @media (min-width: 768px) {
+    .departments {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .departments {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  

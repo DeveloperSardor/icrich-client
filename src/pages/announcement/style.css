@@ -1,0 +1,142 @@
+/* General Reset */
+/* body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+  } */
+  
+  .ann_container {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 70vh;
+    padding: 5.5em 20px;
+  }
+  
+  .ann_header {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 2em;
+  }
+  
+  .ann_header h1 {
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Grid Layout */
+  .ann_grid {
+    margin-top: 1.5em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Card Styles */
+  .ann_card {
+    max-height: 700px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor:  pointer;
+    width: 460px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ann_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .ann_card .card-image {
+    width: 100%;
+    height: 300px;
+    /* height: 200px; */
+/* height: 70%; */
+    /* object-fit: cover; */
+  }
+  
+ .ann_card .card-content {
+    padding: 15px;
+  }
+  
+ .ann_card .card-title {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 10px;
+  }
+  
+  .ann_card .card-date {
+    font-size: 14px;
+    color: #777;
+    margin: 0 0 10px;
+  }
+  
+ .ann_card .card-description {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .ann_header h1 {
+      font-size: 24px;
+    }
+  
+    .ann_grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  .ann_card{
+    width: 300px;
+    margin: 0.5em auto;
+  }
+    .ann_card .card-image {
+      height: 180px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .ann_header h1 {
+      font-size: 20px;
+    }
+  
+     .ann_card .card-title {
+      font-size: 16px;
+    }
+  
+    .ann_card .card-date, .card-description {
+      font-size: 12px;
+    }
+  
+   .ann_card .card-image {
+      height: 150px;
+    }
+  }
+  
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .pagination button:hover {
+    background-color: #f0f0f0;
+  }
+  

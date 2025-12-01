@@ -1,0 +1,139 @@
+/* General container styling */
+.articles-container {
+  padding: 6em 20px;
+  background: #ffffff; /* Oq fon */
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 3em;
+  text-align: center; /* Title markazda joylashishi uchun */
+}
+
+/* Title styling */
+.page-title {
+  text-align: center;
+  font-size: 2em; /* Kichikroq font */
+  color: #2c3e50;
+  font-weight: bold;
+  margin-bottom: 1.5em;
+  letter-spacing: 0.5px;
+  text-transform: none; /* Uppercase emas */
+}
+
+/* Grid layout */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5em;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Article card */
+.article-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+}
+
+.article-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Article content */
+.article-content {
+  padding: 1.2em;
+  text-align: center;
+}
+
+.article-title {
+  font-size: 0.95em; /* Kichikroq font */
+  color: #2c3e50;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  text-transform: none; /* Uppercase emas */
+}
+
+.article-description {
+  font-size: 0.85em; /* Kichikroq font */
+  color: #555;
+  margin-bottom: 1em;
+  line-height: 1.4;
+}
+
+/* Read more button */
+.read-more-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 0.9em; /* Kichikroq font */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  gap: 6px;
+}
+
+.read-more-btn i {
+  font-size: 1em;
+}
+
+.read-more-btn:hover {
+  background-color: #e63946;
+  transform: scale(1.05);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.9em; /* Kichikroq font */
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination button.active {
+  background-color: #0056b3;
+  font-weight: bold;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+/* Responsive design */
+@media screen and (max-width: 992px) {
+  .articles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .articles-container {
+    padding: 5em 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
+  }
+}

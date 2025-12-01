@@ -1,0 +1,56 @@
+.partners-slider {
+    background: #ffffff;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.partners-slider h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.partner-card {
+      background-color: #f9f9f9;
+     width: 250px;
+     height: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .partner-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .partner-card img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .partner-card p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Responsiv o'lchamlarga mos */
+  @media (max-width: 768px) {
+    .partner-card img {
+      width: 80px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .partner-card img {
+      width: 60px;
+    }
+  }
+  

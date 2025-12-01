@@ -1,0 +1,152 @@
+.retro-videos {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.retro-videos-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.main-video {
+  position: relative;
+  border-radius: 8px;
+  width: 65%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.main-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-video-info {
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.video-date {
+  font-size: 0.9rem;
+}
+
+.video-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 165, 0, 0.8);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+  width: 30%;
+}
+
+.video-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.view-all-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: #ffa500;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-all-button:hover {
+  background: #ff8c00;
+}
+
+/* =========== RESPONSIVE DESIGN =========== */
+
+/* 1024px dan kichik ekranlar uchun (planshetlar) */
+@media (max-width: 1024px) {
+  .retro-videos-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .main-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  .video-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .video-item {
+    width: calc(50% - 10px); /* Ikkita video yonma-yon */
+  }
+}
+
+/* 768px dan kichik ekranlar uchun (mobil qurilmalar) */
+@media (max-width: 768px) {
+  .main-video {
+    width: 100%;
+  }
+
+  .video-list {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .video-item {
+    width: 100%; /* Har bir video bitta qator bo'lib chiqadi */
+  }
+
+  .video-thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+}

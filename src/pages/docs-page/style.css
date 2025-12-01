@@ -1,0 +1,123 @@
+/* General Container */
+.docs-container {
+    position: relative; /* Parent for pseudo-element */
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    min-height: 80vh;
+    padding: 6.5em 20px;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    overflow: hidden;
+  }
+  
+  /* Background with dark overlay */
+  .docs-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../assets/otov.jpg') no-repeat center center/cover;
+    filter: brightness(0.4); /* Makes the image darker */
+    z-index: -1; /* Send it behind the content */
+  }
+  
+  /* Title */
+  .page-title {
+    text-align: center;
+    font-size: 36px;
+    color: #fff !important;
+    margin-top: 0.5em;
+    font-weight: bold;
+    margin-bottom: 30px;
+    z-index: 1; /* Ensure it's above the background */
+    position: relative; /* Keeps it above the pseudo-element */
+  }
+  
+  /* Document List */
+  .docs-list {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    z-index: 1; /* Keeps it above the background */
+  }
+  
+  /* Individual Document Card */
+  .doc-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+  }
+  
+  .doc-card:hover{
+    transform: scale(1.04);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* Document Icon */
+  .doc-icon img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Document Info */
+  .doc-info {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .doc-title {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .doc-title:hover {
+    text-decoration: underline;
+  }
+  
+  .doc-description {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 5px;
+  }
+  
+  /* Document Link */
+  .doc-link img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .doc-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .doc-title{
+      font-size: 11px;
+    }
+    .doc-info {
+      /* font-size: 10px !important; */
+      margin-left: 0;
+    }
+  
+    .doc-link {
+      align-self: flex-end;
+    }
+  }
+  

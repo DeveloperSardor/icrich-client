@@ -1,0 +1,23 @@
+.department-card{
+width: 330px;
+margin-top: 1.2em;
+/* background: #000; */
+height: 240px;
+display: flex;
+flex-direction: column;
+gap: 0.750em;
+}
+
+.department-card img{
+    width: 100%;
+    height: 70%;
+}
+
+.department-card .title_{
+    font-family: DM Sans;
+    /* text-align: center; */
+    font-style: normal;
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 21px;
+}

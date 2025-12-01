@@ -1,0 +1,86 @@
+{
+  "navbar": {
+    "aboutUs": {
+      "about": "Biz haqimizda",
+      "activities": "Institut faoliyati",
+      "structure": "Tuzilma",
+      "leadership": "Rahbariyat",
+      "departments": "Bo'limlar",
+      "charter": "Institut nizomi",
+      "jobs": "Bo'sh ish o'rinlari",
+      "contactUs": "Biz bilan bog'lanish"
+    },
+    "openData": {
+      "openData": "Ochiq ma'lumotlar",
+      "internalAudit": "Ichki audit",
+      "jobs": "Bo'sh ish o'rinlari"
+    },
+    "nmm": {
+      "nmm": "NMM",
+      "yunesko": "Yunesko ro'yxati",
+      "national": "Milliy ro'yxat",
+      "expedition": "Ekspeditsiyalar",
+      "localList": "Mahalliy ro'yxat"
+    },
+    "news": {
+      "news": "Yangiliklar",
+      "announcements": "E'lonlar",
+      "latestAnnouncements": "So'nggi e'lonlar"
+    },
+    "docs": "Hujjatlar",
+    "library": {
+      "library": "Kutubxona",
+      "resources": "Foydali manbalar",
+      "articles": "Ilmiy maqolalar"
+    }
+  },
+  "admission": "Qabul kunlari",
+  "wednesday": "Chorshanba",
+  "thursday": "Payshanba",
+  "friday": "Juma",
+  "director": "Direktor",
+  "onScientific": "Direktorning ilmiy ishlar va inovatsiyalar bo'yicha o'rinbosari",
+  "organizational": "Direktorning tashkiliy ishlar bo'yicha o'rinbosari",
+  "scientificSecretary": "Ilmiy kotib",
+  "address": "Toshkent shahar, Shayxontohur tumani, Navoiy ko'chasi, 30-uy",
+  "index": "Indeks",
+  "workdays_text": "Ish kunlari",
+  "work_days": "Dushanba-Juma 9:00-18:00",
+  "nmm": "MADANIYATSHUNOSLIK VA NOMODDIY MADANIY MEROS ILMIY-TADQIQOT INSTITUTI",
+  "homeTitle": "Madaniyatni rivonjlantirish va saqlash",
+  "moreBtn": "Batafsil",
+  "lunchTime": "Tushlik vaqti",
+  "partners": "Hamkorlar",
+  "viewDocument": "Hujjatni ko'rish",
+  "footer": {
+    "socialMedias": "Ijtimoiy tarmoqlar",
+    "allrightsreserved": "Barcha huquqlar himoyalangan. Ushbu veb-sayt ma'lumotlaridan foydalanganda havola ko'rsatilishi shart"
+  },
+  "applyNow": "Ariza yuborish",
+  "alreadyApplied": "Allaqachon ariza yuborilgan",
+  "applyFor": "Uchun ariza yuboring",
+  "loading": "Yuklanmoqda...",
+  "name": "Ism",
+  "phone": "Telefon",
+  "coverLetter": "Hamroh xati",
+  "resume": "Rezyume",
+  "submitApplication": "Arizani yuboring",
+  "close": "Yopish",
+  "application": {
+    "success": "Sizning arizangiz muvaffaqiyatli yuborildi!",
+    "error": "Arizangizni yuborishda xatolik yuz berdi. Iltimos, yana urinib ko'ring."
+  },
+  "prev": "Oldingi",
+  "next": "Keyingi",
+  "allImages": "Barcha rasmlar",
+  "hide": "Yashirish",
+  "recommended": "Tavsiya etiladi",
+  "fullname": "Ismingiz",
+  "enterYourFullName": "Ismingizni kiriting",
+  "phoneNumber": "Telefon nomer",
+  "enterMessage": "Xabaringiz",
+  "enterYourMessage": "Xabaringizni yozing",
+  "submit": "Yuborish",
+  "ourLocation": "Manzilimiz",
+  "findUsOnMap": "Xaritadan toping"
+}

@@ -1,0 +1,87 @@
+{
+  "navbar": {
+    "aboutUs": {
+      "about": "About us",
+      "activities": "Institute activities",
+      "structure": "Structure",
+      "leadership": "Leadership",
+      "departments": "Departments",
+      "charter": "Institute charter",
+      "jobs": "Job vacancies",
+      "contactUs": "Contact us"
+    },
+    "openData": {
+      "openData": "Open Data",
+      "internalAudit": "Internal Audit",
+      "jobs": "Job Vacancies"
+    },
+    "nmm": {
+      "nmm": "NMM",
+      "yunesko": "UNESCO list",
+      "national": "National list",
+      "expedition": "Expeditions",
+      "localList": "Local list"
+    },
+    "news": {
+      "news": "News",
+      "announcements": "Announcements",
+      "latestAnnouncements": "Latest announcements"
+    },
+    "docs": "Documents",
+    "library": {
+      "library": "Library",
+      "resources": "Resources",
+      "articles": "Scientific articles"
+    }
+  },
+  "admission": "Reception days",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "director": "Director",
+  "onScientific": "Deputy Director for Research and Innovation",
+  "organizational": "Deputy Director for Organizational Affairs",
+  "scientificSecretary": "Scientific secretary",
+  "address": "Tashkent city, Shaykhontohur district, Navoi street, house 30",
+  "index": "Index",
+  "workdays_text": "Work days",
+  "work_days": "Monday-Friday 9:00-18:00",
+  "nmm": "Scientific Research Institute of Culturology and Intangible Cultural Heritage",
+  "homeTitle": "Developing and preserving culture",
+  "moreBtn": "More",
+  "lunchTime": "Lunch time",
+  "partners": "Partners",
+  "viewDocument": "View document",
+  "footer": {
+    "socialMedias": "Social medias",
+    "allrightsreserved": "All rights reserved. When using information from this website, a link is required."
+  },
+  "applyNow": "Apply Now",
+  "alreadyApplied": "Already applied",
+  "applyFor": "Apply for",
+  "loading": "Loading...",
+  "name": "Name",
+  "phone": "Phone",
+  "coverLetter": "Cover Letter",
+  "resume": "Resume",
+  "submitApplication": "Submit Application",
+  "close": "Close",
+  "application": {
+    "success": "Your application has been successfully submitted!",
+    "error": "There was an error submitting your application. Please try again."
+  },
+  "prev": "Prev",
+  "next": "Next",
+  "allImages": "All images",
+  "hide": "Hide",
+  "recommended": "Recommended",
+  "fullname": "Fullname",
+  "enterYourFullName": "Enter your fullname",
+  "phoneNumber": "Phone number",
+  "enterMessage": "Your message",
+  "enterYourMessage": "Enter your message",
+  "submit": "Submit",
+  "ourLocation": "Our Location",
+  "findUsOnMap": "Find Us On Map"
+
+}
