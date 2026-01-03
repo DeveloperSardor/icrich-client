@@ -306,97 +306,128 @@ const Home = () => {
       </div>
 
       {/* Departments */}
-      <div className="departments_section">
-        <div className="container_">
-          <h2 className="heading">{t("navbar.aboutUs.departments") || "Bo'limlar"}</h2>
-          <div className="departments_wrp">
-            {currentDepartments.map((dep) => {
-              const employees = Array.isArray(dep.employees) ? dep.employees : [];
-              return (
-                <div key={dep._id} className="department_card" onClick={() => navigate(`/departments/${dep._id}`)}>
-                  <div className="department_header">
-                    <div className="department_icon_wrapper">
-                      <img src={dep.img} alt={getText(dep, 'title')} className="department_img" onError={(e) => e.target.src = 'https://via.placeholder.com/120'} />
-                    </div>
-                    <div className="department_info">
-                      <h3 className="dep_title">{getText(dep, 'title')}</h3>
-                      {employees.length > 0 && (
-                        <div className="department_badge"><Users size={16} /><span>{employees.length} {currentLang === 'uz' ? 'xodim' : 'employees'}</span></div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="department_body">
-                    <div className="department_employees_header"><Briefcase size={20} /><span>{currentLang === 'uz' ? 'Xodimlar' : 'Employees'}</span></div>
-                    {employees.length > 0 ? (
-                      <div className="department_employees_list">
-                        {employees.slice(0, 5).map((emp) => (
-                          <div
-                            key={emp._id}
-                            className="department_employee_item"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              // MUHIM: emp._id ni to'g'ri yuborish
-                              if (emp._id) {
-                                navigate(`/employees/${emp._id}`);
-                              } else {
-                                console.error('Employee ID mavjud emas:', emp);
-                              }
-                            }}
-                          >
-                            <div className="department_employee_info">
-                              <div className="department_employee_position">{getText(emp, 'position') || 'Lavozim'}</div>
-                              <div className="department_employee_name">{getEmployeeName(emp)}</div>
-                            </div>
-                            <ArrowRight size={20} className="department_employee_arrow" />
-                          </div>
-                        ))}
-                        {employees.length > 5 && <div className="department_more_text">+{employees.length - 5} {currentLang === 'uz' ? "ko'proq" : 'more'}</div>}
-                      </div>
-                    ) : (
-                      <div className="department_empty_employees"><Users size={48} /><p>{currentLang === 'uz' ? 'Xodimlar yo\'q' : 'No employees'}</p></div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
 
-          {deptTotalPages > 1 && (
-            <div className="departments-pagination">
-              <button onClick={() => setDeptCurrentPage(p => Math.max(1, p - 1))} disabled={deptCurrentPage === 1} className="pagination-btn">
-                <ChevronLeft size={16} />
-              </button>
-              <div className="pagination-numbers">
-                {getPaginationRange(deptCurrentPage, deptTotalPages).map((num, i) => (
-                  num === '...' ? <span key={i} className="pagination-dots">...</span> :
-                    <button key={i} className={`pagination-number ${num === deptCurrentPage ? 'active' : ''}`} onClick={() => setDeptCurrentPage(num)}>{num}</button>
-                ))}
+
+<div className="departments_section">
+  <div className="container_">
+    <h2 className="heading">{t("navbar.aboutUs.departments") || "Bo'limlar"}</h2>
+    
+    <div className="departments_wrp">
+      {currentDepartments.map((dep) => {
+        const employees = Array.isArray(dep.employees) ? dep.employees : [];
+        
+        return (
+          <div key={dep._id} className="department_card">
+            {/* DEPARTMENT HEADER */}
+            <div className="department_header">
+              <div className="department_icon_wrapper">
+                <img 
+                  src={dep.img} 
+                  alt={getText(dep, 'title')} 
+                  className="department_img" 
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/120?text=Image';
+                  }} 
+                />
               </div>
-              <button onClick={() => setDeptCurrentPage(p => Math.min(deptTotalPages, p + 1))} disabled={deptCurrentPage === deptTotalPages} className="pagination-btn">
-                <ChevronRight size={16} />
-              </button>
+              
+              <div className="department_info">
+                {/* <h3 className="dep_title">{getText(dep, 'title')}</h3> */}
+                
+                {employees.length > 0 && (
+                  <div className="department_badge">
+                    <Users size={16} />
+                    <span>
+                      {employees.length} {currentLang === 'uz' ? 'xodim' : currentLang === 'ru' ? 'сотрудник' : 'employees'}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-        </div>
-      </div>
 
-      {/* Documents */}
-      <div className="documents_section">
-        <div className="container_">
-          <h2 className="heading">{t("navbar.docs") || "Hujjatlar"}</h2>
-          <div className="documents_wrp">
-            {documents.slice(0, 3).map((doc) => (
-              <div key={doc._id} className="document_card">
-                <FileText size={36} className="doc_icon" />
-                <h3 className="doc_title">{truncateText(doc[`title_${currentLang}`], 50)}</h3>
-                <p className="doc_text">{truncateText(doc[`text_${currentLang}`], 80)}</p>
-                {doc.link && <a href={doc.link} className="doc_link" target="_blank" rel="noopener noreferrer"><ExternalLink size={14} />{t("viewDocument")}</a>}
+            {/* DEPARTMENT BODY */}
+            <div className="department_body">
+              {/* CHANGED: Show department title instead of "Xodimlar" */}
+              <div className="department_employees_header">
+                <Briefcase size={20} />
+                <span>{getText(dep, 'title')}</span>
               </div>
-            ))}
+
+              {employees.length > 0 ? (
+                <div className="department_employees_list">
+                  {employees.map((emp) => (
+                    <div
+                      key={emp._id}
+                      className="department_employee_item"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (emp._id) {
+                          navigate(`/employees/${emp._id}`);
+                        }
+                      }}
+                    >
+                      <div className="department_employee_info">
+                        <div className="department_employee_position">
+                          {getText(emp, 'position') || (currentLang === 'uz' ? 'Lavozim' : 'Position')}
+                        </div>
+                        <div className="department_employee_name">
+                          {getEmployeeName(emp)}
+                        </div>
+                      </div>
+                      <ArrowRight size={20} className="department_employee_arrow" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="department_empty_employees">
+                  <Users size={48} />
+                  <p>
+                    {currentLang === 'uz' ? 'Xodimlar yo\'q' : currentLang === 'ru' ? 'Нет сотрудников' : 'No employees'}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-          {documents.length > 3 && <button className="more_btn" onClick={() => navigate("/docs")}>{t("moreBtn")}</button>}
+        );
+      })}
+    </div>
+
+    {/* PAGINATION */}
+    {deptTotalPages > 1 && (
+      <div className="departments-pagination">
+        <button 
+          onClick={() => setDeptCurrentPage(p => Math.max(1, p - 1))} 
+          disabled={deptCurrentPage === 1} 
+          className="pagination-btn"
+        >
+          <ChevronLeft size={16} />
+        </button>
+        
+        <div className="pagination-numbers">
+          {getPaginationRange(deptCurrentPage, deptTotalPages).map((num, i) => (
+            num === '...' ? 
+              <span key={i} className="pagination-dots">...</span> :
+              <button 
+                key={i} 
+                className={`pagination-number ${num === deptCurrentPage ? 'active' : ''}`} 
+                onClick={() => setDeptCurrentPage(num)}
+              >
+                {num}
+              </button>
+          ))}
         </div>
+        
+        <button 
+          onClick={() => setDeptCurrentPage(p => Math.min(deptTotalPages, p + 1))} 
+          disabled={deptCurrentPage === deptTotalPages} 
+          className="pagination-btn"
+        >
+          <ChevronRight size={16} />
+        </button>
       </div>
+    )}
+  </div>
+</div>
 
       {/* Map */}
       <div className="map">

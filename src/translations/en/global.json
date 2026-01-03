@@ -54,7 +54,9 @@
   "viewDocument": "View document",
   "footer": {
     "socialMedias": "Social medias",
-    "allrightsreserved": "All rights reserved. When using information from this website, a link is required."
+    "allrightsreserved": "All rights reserved. When using information from this website, a link is required.",
+        "developedBy": "Developed by"
+
   },
   "applyNow": "Apply Now",
   "alreadyApplied": "Already applied",

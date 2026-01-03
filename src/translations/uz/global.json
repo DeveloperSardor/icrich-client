@@ -54,7 +54,8 @@
   "viewDocument": "Hujjatni ko'rish",
   "footer": {
     "socialMedias": "Ijtimoiy tarmoqlar",
-    "allrightsreserved": "Barcha huquqlar himoyalangan. Ushbu veb-sayt ma'lumotlaridan foydalanganda havola ko'rsatilishi shart"
+    "allrightsreserved": "Barcha huquqlar himoyalangan. Ushbu veb-sayt ma'lumotlaridan foydalanganda havola ko'rsatilishi shart",
+    "developedBy": "Saytni yaratuvchi:"
   },
   "applyNow": "Ariza yuborish",
   "alreadyApplied": "Allaqachon ariza yuborilgan",
@@ -82,5 +83,4 @@
   "enterYourMessage": "Xabaringizni yozing",
   "submit": "Yuborish",
   "ourLocation": "Manzilimiz",
-  "findUsOnMap": "Xaritadan toping"
-}
+  "findUsOnMap": "Xaritadan toping"}
