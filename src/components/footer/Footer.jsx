@@ -11,48 +11,71 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
+        {/* Logo & Contact Section */}
         <div className="footer-logo">
-          <img
-            src={LogoImg}
-            alt="Institute Logo"
-          />
+          <img src={LogoImg} alt="Institute Logo" />
           <p>{t('address')}</p>
           <p>{t('index')}: 100011</p>
-          <p className="email_">E-mail <MdEmail/> icrich@madaniyat.uz</p>
-          <p className="exat_">E-xat <MdEmail/> icrich@exat.uz</p>
+          <p className="email__">
+            <MdEmail /> icrich@madaniyat.uz
+          </p>
+          <p className="exat__">
+            <MdEmail /> icrich@exat.uz
+          </p>
         </div>
-        
+
+        {/* Working Hours Section */}
         <div className="footer-links">
           <h4>{t('workdays_text')}</h4>
-          <ul>
-            <li>
-              <p>{t('work_days')}</p>
-              <p style={{ marginTop: "0.5em" }}>{t('lunchTime')} : 13:00-14:00</p>
-            </li>
-          </ul>
+          <div className="working-hours">
+            <p>{t('work_days')}</p>
+            {/* <p className="lunch-time">{t('lunchTime')}: 13:00-14:00</p> */}
+          </div>
         </div>
-        
+
+        {/* Social Media Section */}
         <div className="footer-social">
           <h4>{t('footer.socialMedias')}</h4>
           <div className="social-icons">
-            <a href="https://t.me/icrichuzb" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <a 
+              href="https://t.me/icrichuzb" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Telegram"
+            >
               <FaTelegramPlane />
             </a>
-            <a href="https://www.instagram.com/icrichuzb/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a 
+              href="https://www.instagram.com/icrichuzb/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Instagram"
+            >
               <FaInstagram />
             </a>
-            <a href="https://www.facebook.com/share/12AcBa8xGWy/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <a 
+              href="https://www.facebook.com/share/12AcBa8xGWy/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Facebook"
+            >
               <FaFacebook />
             </a>
-            <a href="https://www.youtube.com/@ICRICHuz" target="_blank" rel="noopener noreferrer" aria-label="Youtube">
-              <FaYoutube/>
+            <a 
+              href="https://www.youtube.com/@ICRICHuz" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              aria-label="Youtube"
+            >
+              <FaYoutube />
             </a>
           </div>
         </div>
       </div>
-      
+
+      {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} {t('footer.allrightsreserved')}.</p>
+        <p>© {new Date().getFullYear()} {t('footer.allrightsreserved')}</p>
         <p className="developer-credit">
           {t('footer.developedBy') || 'Developed by'}{' '}
           <a 

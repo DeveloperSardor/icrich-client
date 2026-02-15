@@ -11,7 +11,7 @@ const YuneskoPage = () => {
   const [uneskoData, setUneskoData] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [t, i18n] = useTranslation("global");
+  const [t] = useTranslation("global");
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const handleToggleImages = () => {
@@ -21,38 +21,80 @@ const YuneskoPage = () => {
   const handleNextData = () => {
     if (currentIndex < uneskoData.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      setShowMoreImages(false);
     }
   };
 
   const handlePrevData = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
+      setShowMoreImages(false);
     }
   };
 
   useEffect(() => {
     const fetchUneskoData = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${BACKEND_URL}/api/unesko`);
-        setUneskoData(response.data.data); // Assuming your API returns data in 'data' field
-        setLoading(false);
+        setUneskoData(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchUneskoData();
-  }, []);
+  }, [BACKEND_URL]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="national-container">
+        <div className="skeleton-loader">
+          <div className="skeleton-title"></div>
+          <div className="skeleton-video"></div>
+          <div className="skeleton-content">
+            <div className="skeleton-text-card">
+              <div className="skeleton-heading"></div>
+              <div className="skeleton-line"></div>
+              <div className="skeleton-line"></div>
+              <div className="skeleton-line short"></div>
+            </div>
+            <div className="skeleton-image-card">
+              <div className="skeleton-button"></div>
+              <div className="skeleton-gallery">
+                <div className="skeleton-image"></div>
+                <div className="skeleton-image"></div>
+                <div className="skeleton-image"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!uneskoData || uneskoData.length === 0) {
+    return (
+      <div className="national-container">
+        <h1 className="page-title">{t("navbar.nmm.yunesko")}</h1>
+        <div className="no-data">
+          <p>
+            {currentLang === "uz"
+              ? "Ma'lumot topilmadi"
+              : currentLang === "ru"
+              ? "Данные не найдены"
+              : "No data found"}
+          </p>
+        </div>
+      </div>
+    );
   }
 
   const images = uneskoData[currentIndex]?.images || [];
   const displayedImages = showMoreImages ? images : images.slice(0, 6);
 
-  // Extract the video ID from YouTube link to ensure correct URL format
   const getYouTubeEmbedUrl = (url) => {
     const videoId = url?.match(
       /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|\S+\/?|\S+)?(?:v=|e(?:mbed\/)?)|youtu\.be\/)([\w\-]+)/
@@ -60,9 +102,18 @@ const YuneskoPage = () => {
     return videoId ? `https://www.youtube.com/embed/${videoId[1]}` : url;
   };
 
+  const getText = (field) => {
+    const item = uneskoData[currentIndex];
+    if (!item) return "";
+
+    if (currentLang === "en") return item[`${field}_en`] || item[`${field}_uz`] || "";
+    if (currentLang === "ru") return item[`${field}_ru`] || item[`${field}_uz`] || "";
+    return item[`${field}_uz`] || "";
+  };
+
   return (
     <div className="national-container">
-      <h1 className="page-title"> {t("navbar.nmm.yunesko")}</h1>
+      <h1 className="page-title">{t("navbar.nmm.yunesko")}</h1>
 
       {/* Video Section */}
       <div className="video-section">
@@ -70,7 +121,7 @@ const YuneskoPage = () => {
           width="853"
           height="480"
           src={getYouTubeEmbedUrl(uneskoData[currentIndex]?.youtube_link)}
-          title="YUNESKO jahon merosi ro'yxati boyitildi"
+          title="YUNESKO jahon merosi ro'yxati"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
@@ -80,28 +131,19 @@ const YuneskoPage = () => {
 
       {/* Main Content */}
       <div className="content-section">
-        {/* Left Section */}
+        {/* Left Section - Text with HTML support */}
         <div className="text-card">
-          <h3>
-            {" "}
-            {currentLang == "en"
-              ? uneskoData[currentIndex].title_en
-              : currentLang == "ru"
-              ? uneskoData[currentIndex].title_ru
-              : uneskoData[currentIndex].title_uz}{" "}
-          </h3>
-          <p>
-            {" "}
-            {currentLang == "en"
-              ? uneskoData[currentIndex].text_en
-              : currentLang == "ru"
-              ? uneskoData[currentIndex].text_ru
-              : uneskoData[currentIndex].text_uz}{" "}
-          </p>
+          <h3>{getText("title")}</h3>
+          <p dangerouslySetInnerHTML={{ __html: getText("text") }} />
         </div>
 
-        {/* Right Section */}
+        {/* Right Section - Images */}
         <div className="image-card">
+          <button className="details-button" onClick={handleToggleImages}>
+            {showMoreImages 
+              ? (currentLang === "uz" ? "Yashirish" : currentLang === "ru" ? "Скрыть" : "Hide")
+              : (currentLang === "uz" ? "Barcha rasmlar" : currentLang === "ru" ? "Все изображения" : "All Images")}
+          </button>
           <div className="image-gallery">
             {displayedImages.map((src, index) => (
               <img
@@ -109,25 +151,26 @@ const YuneskoPage = () => {
                 src={src}
                 alt={`Gallery ${index + 1}`}
                 className="gallery-image"
+                loading="lazy"
               />
             ))}
           </div>
-          <button className="details-button" onClick={handleToggleImages}>
-            {showMoreImages ? t("hide") : t("allImages")}
-          </button>
         </div>
       </div>
 
       {/* Navigation Buttons */}
       <div className="navigation-buttons">
         <button onClick={handlePrevData} disabled={currentIndex === 0}>
-          {t("prev")}
+          {currentLang === "uz" ? "Oldingi" : currentLang === "ru" ? "Предыдущий" : "Previous"}
         </button>
+        <span className="page-indicator">
+          {currentIndex + 1} / {uneskoData.length}
+        </span>
         <button
           onClick={handleNextData}
           disabled={currentIndex === uneskoData.length - 1}
         >
-          {t("next")}
+          {currentLang === "uz" ? "Keyingi" : currentLang === "ru" ? "Следующий" : "Next"}
         </button>
       </div>
     </div>

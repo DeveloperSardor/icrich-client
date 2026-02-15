@@ -10,6 +10,7 @@ const NewsPage = () => {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [t] = useTranslation("global");
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const newsPerPage = 6;
   const currentLang = useContext(Context)?.currentLang || "uz";
@@ -18,6 +19,7 @@ const NewsPage = () => {
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const { data } = await axios.get(`${BACKEND_URL}/api/news`);
         const sortedNews = data?.data?.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -25,6 +27,8 @@ const NewsPage = () => {
         setNews(sortedNews || []);
       } catch (error) {
         toast.error(error?.message || "Xatolik yuz berdi");
+      } finally {
+        setLoading(false);
       }
     })();
   }, [BACKEND_URL]);
@@ -41,87 +45,155 @@ const NewsPage = () => {
   const goPrev = () => setCurrentPage((p) => Math.max(1, p - 1));
   const goNext = () => setCurrentPage((p) => Math.min(totalPages, p + 1));
 
-  const toEmbed = (url = "") =>
-    url
-      .replace("watch?v=", "embed/")
-      .replace("youtu.be/", "www.youtube.com/embed/")
-      .split("&")[0];
+  // YouTube video ID extraction
+  const getYouTubeID = (link) => {
+    if (!link) return null;
+    try {
+      const url = new URL(link);
+      if (url.hostname === "youtu.be") {
+        return url.pathname.slice(1);
+      }
+      if (url.hostname.includes("youtube.com")) {
+        return url.searchParams.get("v");
+      }
+    } catch (error) {
+      console.error("Invalid YouTube URL:", error);
+    }
+    return null;
+  };
+
+  // HTML text truncation
+  const truncateHtmlText = (html, maxLength) => {
+    if (!html) return "";
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    const text = tmp.textContent || tmp.innerText || "";
+    return text.length > maxLength 
+      ? text.substring(0, maxLength) + '...' 
+      : text;
+  };
+
+  // Get title by language
+  const getTitle = (item) => {
+    if (currentLang === 'uz') return item.title_uz;
+    if (currentLang === 'ru') return item.title_ru;
+    return item.title_en;
+  };
+
+  // Get text by language
+  const getText = (item) => {
+    const text = currentLang === 'uz' ? item.text_uz 
+      : currentLang === 'ru' ? item.text_ru 
+      : item.text_en;
+    return truncateHtmlText(text, 150);
+  };
+
+  if (loading) {
+    return (
+      <div className="news-page">
+        <h1 className="page-title">{t("navbar.news.news")}</h1>
+        <div className="news-grid">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="skeleton-card">
+              <div className="skeleton-media"></div>
+              <div className="skeleton-content">
+                <div className="skeleton-title"></div>
+                <div className="skeleton-line"></div>
+                <div className="skeleton-line"></div>
+                <div className="skeleton-line short"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (!news || news.length === 0) {
+    return (
+      <div className="news-page">
+        <h1 className="page-title">{t("navbar.news.news")}</h1>
+        <div className="no-news">
+          <p>
+            {currentLang === "uz"
+              ? "Yangiliklar topilmadi"
+              : currentLang === "ru"
+              ? "Новости не найдены"
+              : "No news found"}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="news-page">
-      <h1 className="news-header">{t("navbar.news.news")}</h1>
+      <h1 className="page-title">{t("navbar.news.news")}</h1>
 
       <div className="news-grid">
         {currentNews.map((item) => {
-          const isImage = item?.files?.[0]?.type_file === "image";
-          const hasYouTube = !!item?.youtube_link;
-          const title = item[`title_${currentLang}`] || item?.title_uz || "";
-          const desc = item[`text_${currentLang}`] || item?.text_uz || "";
+          const videoID = getYouTubeID(item.youtube_link);
+          const title = getTitle(item);
+          const text = getText(item);
 
           return (
-            <article
-              key={item._id}
-              className="news-card"
+            <div 
+              key={item._id} 
+              className="news-card" 
               onClick={() => navigate(`/news/${item._id}`)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => e.key === "Enter" && navigate(`/news/${item._id}`)}
             >
-              <div className="news-media">
-                {isImage ? (
-                  <img src={item.files[0].link} alt={title} loading="lazy" />
-                ) : hasYouTube ? (
+              {/* Media */}
+              <div className="news-media-container">
+                {item.files?.length > 0 ? (
+                  <img 
+                    src={item.files[0].link} 
+                    alt={title} 
+                    className="news-image" 
+                    loading="lazy"
+                  />
+                ) : videoID ? (
                   <iframe
-                    src={toEmbed(item.youtube_link)}
+                    src={`https://www.youtube.com/embed/${videoID}`}
                     title={title}
+                    className="news-video"
                     frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
+                    loading="lazy"
                   />
                 ) : (
-                  <div className="news-placeholder">No media</div>
+                  <div className="news-placeholder">
+                    {currentLang === "uz" 
+                      ? "Rasm mavjud emas" 
+                      : currentLang === "ru" 
+                      ? "Нет изображения" 
+                      : "No Image Available"}
+                  </div>
                 )}
-                {/* <span className="media-badge"> */}
-                  {/* {isImage ? "Image" : hasYouTube ? "Video" : "Post"} */}
-                {/* </span> */}
               </div>
 
-              <div className="news-content">
-                <div className="news-meta">
-                  <span className="news-date">
-                    {new Date(item.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-
-                <h3 className="news-title">{title}</h3>
-                <p className="news-description">{desc}</p>
-              </div>
-
-              <div className="news-footer">
-                <button
-                  className="news-cta"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/news/${item._id}`);
-                  }}
-                  aria-label="Batafsil"
-                >
-                  {t("moreBtn") || "Batafsil"}
-                  <span className="arrow">→</span>
-                </button>
-              </div>
-            </article>
+              {/* Content */}
+              <h3 className="newss-title">{title}</h3>
+              <p className="news-text">{text}</p>
+              <button className="news-button">
+                {currentLang === "uz" 
+                  ? "Batafsil" 
+                  : currentLang === "ru" 
+                  ? "Подробнее" 
+                  : "Read More"}
+              </button>
+            </div>
           );
         })}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="pagination">
           <button
             className="page-btn"
             onClick={goPrev}
             disabled={currentPage === 1}
-            aria-label="Oldingi"
+            aria-label="Previous page"
           >
             ‹
           </button>
@@ -131,6 +203,7 @@ const NewsPage = () => {
               key={n}
               onClick={() => paginate(n)}
               className={`page-btn ${n === currentPage ? "active" : ""}`}
+              aria-label={`Page ${n}`}
               aria-current={n === currentPage ? "page" : undefined}
             >
               {n}
@@ -141,7 +214,7 @@ const NewsPage = () => {
             className="page-btn"
             onClick={goNext}
             disabled={currentPage === totalPages}
-            aria-label="Keyingi"
+            aria-label="Next page"
           >
             ›
           </button>

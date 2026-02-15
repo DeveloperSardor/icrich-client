@@ -267,7 +267,7 @@ const Home = () => {
         <div className="container_">
           <div className="section_header">
             <h2 className="heading">{t("navbar.news.announcements") || "E'lonlar"}</h2>
-            <div className="section_subtitle"><span>{t('navbar.news.latestAnnouncements')}</span></div>
+            {/* <div className="section_subtitle"><span>{t('navbar.news.latestAnnouncements')}</span></div> */}
           </div>
           {announcements.length > 0 ? (
             <div className="announcements_container">
@@ -277,7 +277,7 @@ const Home = () => {
                     <article className="ann_card" onClick={() => navigate(`/announcements/${ann._id}`)}>
                       <div className="card_image_container">
                         <img src={ann.img} alt={ann[`title_${currentLang}`]} onError={(e) => e.target.src = '/placeholder.jpg'} />
-                        <div className="image_overlay"><div className="new_badge">Yangi</div></div>
+                        {/* <div className="image_overlay"><div className="new_badge">Yangi</div></div> */}
                       </div>
                       <div className="card_content">
                         <time className="card_date">{formatDate(ann.createdAt)}</time>
@@ -308,133 +308,12 @@ const Home = () => {
       {/* Departments */}
 
 
-<div className="departments_section">
-  <div className="container_">
-    <h2 className="heading">{t("navbar.aboutUs.departments") || "Bo'limlar"}</h2>
-    
-    <div className="departments_wrp">
-      {currentDepartments.map((dep) => {
-        const employees = Array.isArray(dep.employees) ? dep.employees : [];
-        
-        return (
-          <div key={dep._id} className="department_card">
-            {/* DEPARTMENT HEADER */}
-            <div className="department_header">
-              <div className="department_icon_wrapper">
-                <img 
-                  src={dep.img} 
-                  alt={getText(dep, 'title')} 
-                  className="department_img" 
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/120?text=Image';
-                  }} 
-                />
-              </div>
-              
-              <div className="department_info">
-                {/* <h3 className="dep_title">{getText(dep, 'title')}</h3> */}
-                
-                {employees.length > 0 && (
-                  <div className="department_badge">
-                    <Users size={16} />
-                    <span>
-                      {employees.length} {currentLang === 'uz' ? 'xodim' : currentLang === 'ru' ? 'сотрудник' : 'employees'}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* DEPARTMENT BODY */}
-            <div className="department_body">
-              {/* CHANGED: Show department title instead of "Xodimlar" */}
-              <div className="department_employees_header">
-                <Briefcase size={20} />
-                <span>{getText(dep, 'title')}</span>
-              </div>
-
-              {employees.length > 0 ? (
-                <div className="department_employees_list">
-                  {employees.map((emp) => (
-                    <div
-                      key={emp._id}
-                      className="department_employee_item"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (emp._id) {
-                          navigate(`/employees/${emp._id}`);
-                        }
-                      }}
-                    >
-                      <div className="department_employee_info">
-                        <div className="department_employee_position">
-                          {getText(emp, 'position') || (currentLang === 'uz' ? 'Lavozim' : 'Position')}
-                        </div>
-                        <div className="department_employee_name">
-                          {getEmployeeName(emp)}
-                        </div>
-                      </div>
-                      <ArrowRight size={20} className="department_employee_arrow" />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="department_empty_employees">
-                  <Users size={48} />
-                  <p>
-                    {currentLang === 'uz' ? 'Xodimlar yo\'q' : currentLang === 'ru' ? 'Нет сотрудников' : 'No employees'}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-
-    {/* PAGINATION */}
-    {deptTotalPages > 1 && (
-      <div className="departments-pagination">
-        <button 
-          onClick={() => setDeptCurrentPage(p => Math.max(1, p - 1))} 
-          disabled={deptCurrentPage === 1} 
-          className="pagination-btn"
-        >
-          <ChevronLeft size={16} />
-        </button>
-        
-        <div className="pagination-numbers">
-          {getPaginationRange(deptCurrentPage, deptTotalPages).map((num, i) => (
-            num === '...' ? 
-              <span key={i} className="pagination-dots">...</span> :
-              <button 
-                key={i} 
-                className={`pagination-number ${num === deptCurrentPage ? 'active' : ''}`} 
-                onClick={() => setDeptCurrentPage(num)}
-              >
-                {num}
-              </button>
-          ))}
-        </div>
-        
-        <button 
-          onClick={() => setDeptCurrentPage(p => Math.min(deptTotalPages, p + 1))} 
-          disabled={deptCurrentPage === deptTotalPages} 
-          className="pagination-btn"
-        >
-          <ChevronRight size={16} />
-        </button>
-      </div>
-    )}
-  </div>
-</div>
-
       {/* Map */}
       <div className="map">
         <div className="container_">
           <div className="map-header">
             <h2><MapPin size={20} />{t("ourLocation")}</h2>
-            <p>{t("findUsOnMap")}</p>
+            {/* <p>{t("findUsOnMap")}</p> */}
           </div>
           <iframe src="https://yandex.uz/map-widget/v1/-/CHQrFz4nT" width="100%" height="400px" frameBorder="0" title="Map" allowFullScreen loading="lazy" />
         </div>

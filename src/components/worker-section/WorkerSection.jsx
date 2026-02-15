@@ -12,22 +12,19 @@ const Rahbariyat = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedLeader, setSelectedLeader] = useState(null);
+  const [modalType, setModalType] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const contextDatas = useContext(Context);
   const currentLang = contextDatas.currentLang || 'uz';
 
-  // Rahbariyatni olish
+  // Fetch leadership data
   const fetchLeaders = async () => {
     try {
       setLoading(true);
       setError(null);
       
-      // Faqat rahbariyat a'zolarini olish
       const { data } = await axios.get(`${BACKEND_URL}/api/leadership/role/leadership`);
       
-      console.log("Leadership data:", data);
-      
-      // Faqat faol rahbarlarni filter qilish
       const activeLeaders = data.data.filter(leader => leader.isActive);
       setLeaders(activeLeaders);
     } catch (error) {
@@ -42,28 +39,32 @@ const Rahbariyat = () => {
     fetchLeaders();
   }, []);
 
-  // Modal ochish
-  const openModal = (leader) => {
+  // Open modal
+  const openModal = (leader, type) => {
     setSelectedLeader(leader);
+    setModalType(type);
     setShowModal(true);
-    document.body.style.overflow = 'hidden'; // Scroll-ni to'xtatish
+    document.body.style.overflow = 'hidden';
   };
 
-  // Modal yopish
+  // Close modal
   const closeModal = () => {
     setShowModal(false);
-    document.body.style.overflow = 'auto'; // Scroll-ni qaytarish
-    setTimeout(() => setSelectedLeader(null), 300);
+    document.body.style.overflow = 'auto';
+    setTimeout(() => {
+      setSelectedLeader(null);
+      setModalType(null);
+    }, 300);
   };
 
-  // Tilga mos ma'lumotni olish helper funksiyasi
+  // Get localized field
   const getLocalizedField = (field) => {
     if (!field) return "";
     if (typeof field === 'string') return field;
     return field[currentLang] || field.uz || field.en || "";
   };
 
-  // Qabul kunlarini formatlash
+  // Format schedule days
   const formatSchedule = (schedule) => {
     if (!schedule || !schedule.days || schedule.days.length === 0) {
       return currentLang === 'en' 
@@ -110,12 +111,58 @@ const Rahbariyat = () => {
     return translatedDays.join(", ");
   };
 
-  // Vaqtni formatlash
+  // Format time
   const formatTime = (schedule) => {
     if (!schedule || !schedule.start || !schedule.end) {
       return "15:00-17:00";
     }
     return `${schedule.start}-${schedule.end}`;
+  };
+
+  // Get modal title
+  const getModalTitle = () => {
+    if (modalType === 'duties') {
+      return currentLang === 'en' ? 'VAZIFALARI' : currentLang === 'ru' ? 'ОБЯЗАННОСТИ' : 'VAZIFALARI';
+    }
+    return currentLang === 'en' ? 'BIOGRAFIYA' : currentLang === 'ru' ? 'БИОГРАФИЯ' : 'BIOGRAFIYA';
+  };
+
+  // Parse biography into sections
+  const parseBiography = (bioText) => {
+    if (!bioText) return { intro: '', sections: [] };
+
+    const sections = [];
+    let currentSection = null;
+    let intro = '';
+    const lines = bioText.split('\n');
+
+    lines.forEach((line, index) => {
+      const trimmedLine = line.trim();
+      
+      if (!trimmedLine) return;
+
+      // Detect section headers (ALL CAPS lines)
+      if (trimmedLine === trimmedLine.toUpperCase() && trimmedLine.length > 5 && !trimmedLine.match(/^\d{4}/)) {
+        if (currentSection) {
+          sections.push(currentSection);
+        }
+        currentSection = {
+          title: trimmedLine,
+          content: []
+        };
+      } else if (currentSection) {
+        currentSection.content.push(trimmedLine);
+      } else {
+        // Lines before first section are intro
+        intro += (intro ? '\n' : '') + trimmedLine;
+      }
+    });
+
+    if (currentSection) {
+      sections.push(currentSection);
+    }
+
+    return { intro, sections };
   };
 
   if (loading) {
@@ -163,24 +210,27 @@ const Rahbariyat = () => {
                 {getLocalizedField(leader.position)}
               </p>
               
-              {/* Ilmiy daraja */}
               {leader.academicDegree && (
                 <p className="leader-degree">
                   {getLocalizedField(leader.academicDegree)}
                 </p>
               )}
 
-              {/* Biografiya tugmalari */}
               <div className="leader-buttons">
-                <button className="btn-duties" onClick={() => openModal(leader)}>
-                  {currentLang === 'en' ? 'Duties' : currentLang === 'ru' ? 'Обязанности' : 'Vazifalari'}
+                <button 
+                  className="btn-duties" 
+                  onClick={() => openModal(leader, 'duties')}
+                >
+                  {currentLang === 'en' ? 'Vazifalari' : currentLang === 'ru' ? 'Обязанности' : 'Vazifalari'}
                 </button>
-                <button className="btn-biography" onClick={() => openModal(leader)}>
-                  {currentLang === 'en' ? 'Biography' : currentLang === 'ru' ? 'Биография' : 'Biografiya'}
+                <button 
+                  className="btn-biography" 
+                  onClick={() => openModal(leader, 'biography')}
+                >
+                  {currentLang === 'en' ? 'Biografiya' : currentLang === 'ru' ? 'Биография' : 'Biografiya'}
                 </button>
               </div>
 
-              {/* Aloqa ma'lumotlari */}
               <div className="leader-contacts">
                 {leader.email && (
                   <p className="leader-email">
@@ -204,7 +254,6 @@ const Rahbariyat = () => {
                 )}
               </div>
 
-              {/* Qabul vaqti */}
               <div className="admission">
                 <p className="leader-schedule">
                   {formatSchedule(leader.schedule)}
@@ -226,7 +275,7 @@ const Rahbariyat = () => {
         )}
       </div>
 
-      {/* Modal oyna */}
+      {/* Modal */}
       {showModal && selectedLeader && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -235,9 +284,9 @@ const Rahbariyat = () => {
             </button>
             
             <div className="modal-header">
-              <h2 className="modal-title">
-                {currentLang === 'en' ? 'BIOGRAPHY' : currentLang === 'ru' ? 'БИОГРАФИЯ' : 'BIOGRAFIYA'}
-              </h2>
+              <div className="modal-header-line"></div>
+              <h2 className="modal-title">{getModalTitle()}</h2>
+              <div className="modal-header-line"></div>
             </div>
             
             <div className="modal-body">
@@ -245,54 +294,107 @@ const Rahbariyat = () => {
                 {getLocalizedField(selectedLeader.name)}
               </h3>
               
-              {/* Biografiya */}
-              {selectedLeader.bio && getLocalizedField(selectedLeader.bio) && (
-                <p className="modal-bio">
-                  {getLocalizedField(selectedLeader.bio)}
-                </p>
-              )}
-              
-              {/* Ta'lim */}
-              {selectedLeader.education && getLocalizedField(selectedLeader.education) && (
-                <div className="modal-section">
-                  <h4 className="modal-section-title">
-                    {currentLang === 'en' ? 'EDUCATION' : currentLang === 'ru' ? 'ОБРАЗОВАНИЕ' : 'TA\'LIM'}
-                  </h4>
-                  <p className="modal-section-text">
-                    {getLocalizedField(selectedLeader.education)}
-                  </p>
+              {/* Duties Modal Content */}
+              {modalType === 'duties' && (
+                <div className="modal-duties-content">
+                  {selectedLeader.position && (
+                    <p className="modal-position-text">
+                      {getLocalizedField(selectedLeader.position)}
+                    </p>
+                  )}
+                  
+                  {selectedLeader.duties && Array.isArray(selectedLeader.duties) && selectedLeader.duties.length > 0 && (
+                    <ul className="modal-list">
+                      {selectedLeader.duties.map((duty, index) => (
+                        <li key={index}>{getLocalizedField(duty)}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
               
-              {/* Mukofotlar */}
-              {selectedLeader.awards && Array.isArray(selectedLeader.awards) && selectedLeader.awards.length > 0 && (
-                <div className="modal-section">
-                  <h4 className="modal-section-title">
-                    {currentLang === 'en' 
-                      ? 'AWARDED WITH THE FOLLOWING STATE AWARDS' 
-                      : currentLang === 'ru' 
-                      ? 'НАГРАЖДЕН СЛЕДУЮЩИМИ ГОСУДАРСТВЕННЫМИ НАГРАДАМИ' 
-                      : 'QUYIDAGI DAVLAT MUKOFOTLARI BILAN TAQDIRLANGAN'}
-                  </h4>
-                  <ul className="modal-list">
-                    {selectedLeader.awards.map((award, index) => (
-                      <li key={index}>{getLocalizedField(award)}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              
-              {/* Mehnat faoliyati */}
-              {selectedLeader.workHistory && Array.isArray(selectedLeader.workHistory) && selectedLeader.workHistory.length > 0 && (
-                <div className="modal-section">
-                  <h4 className="modal-section-title">
-                    {currentLang === 'en' ? 'WORK EXPERIENCE' : currentLang === 'ru' ? 'ТРУДОВАЯ ДЕЯТЕЛЬНОСТЬ' : 'MEHNAT FAOLIYATI'}
-                  </h4>
-                  <ul className="modal-list">
-                    {selectedLeader.workHistory.map((work, index) => (
-                      <li key={index}>{getLocalizedField(work)}</li>
-                    ))}
-                  </ul>
+              {/* Biography Modal Content */}
+              {modalType === 'biography' && (
+                <div className="modal-biography-content">
+                  {(() => {
+                    const bioText = getLocalizedField(selectedLeader.bio);
+                    const { intro, sections } = parseBiography(bioText);
+
+                    return (
+                      <>
+                        {/* Intro text before first section */}
+                        {intro && (
+                          <div className="modal-bio-text">
+                            {intro.split('\n').map((paragraph, idx) => (
+                              <p key={idx} className="modal-bio-paragraph">
+                                {paragraph}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+
+                        {/* Render parsed sections */}
+                        {sections.map((section, sectionIndex) => (
+                          <div className="modal-section" key={sectionIndex}>
+                            <h4 className="modal-section-title">
+                              {section.title}
+                            </h4>
+                            <div className="modal-section-text">
+                              {section.content.map((line, lineIndex) => (
+                                <p key={lineIndex} className="modal-bio-paragraph">
+                                  {line}
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </>
+                    );
+                  })()}
+                  
+                  {/* Education */}
+                  {selectedLeader.education && getLocalizedField(selectedLeader.education) && (
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">
+                        {currentLang === 'en' ? 'EDUCATION' : currentLang === 'ru' ? 'ОБРАЗОВАНИЕ' : 'TA\'LIM'}
+                      </h4>
+                      <p className="modal-section-text">
+                        {getLocalizedField(selectedLeader.education)}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Awards */}
+                  {selectedLeader.awards && Array.isArray(selectedLeader.awards) && selectedLeader.awards.length > 0 && (
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">
+                        {currentLang === 'en' 
+                          ? 'STATE AWARDS' 
+                          : currentLang === 'ru' 
+                          ? 'ГОСУДАРСТВЕННЫЕ НАГРАДЫ' 
+                          : 'DAVLAT MUKOFOTLARI'}
+                      </h4>
+                      <ul className="modal-list">
+                        {selectedLeader.awards.map((award, index) => (
+                          <li key={index}>{getLocalizedField(award)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
+                  {/* Work History */}
+                  {selectedLeader.workHistory && Array.isArray(selectedLeader.workHistory) && selectedLeader.workHistory.length > 0 && (
+                    <div className="modal-section">
+                      <h4 className="modal-section-title">
+                        {currentLang === 'en' ? 'WORK EXPERIENCE' : currentLang === 'ru' ? 'ТРУДОВАЯ ДЕЯТЕЛЬНОСТЬ' : 'MEHNAT FAOLIYATI'}
+                      </h4>
+                      <ul className="modal-list">
+                        {selectedLeader.workHistory.map((work, index) => (
+                          <li key={index}>{getLocalizedField(work)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

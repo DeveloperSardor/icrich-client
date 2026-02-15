@@ -1,92 +1,22 @@
+/* ===== DOCUMENT VIEWER WITH HTML SUPPORT ===== */
 .document-viewer {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .doc-card {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #f9f9f9;
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  .doc-icon {
-    font-size: 40px;
-    color: #007bff;
-    margin-right: 15px;
-  }
-  
-  .doc-details {
-    text-align: left;
-  }
-  
-  .doc-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 8px;
-  }
-  
-  .doc-description {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.6;
-  }
-  
-  .navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .nav-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .prev {
-    background: #6c757d;
-    color: white;
-  }
-  
-  .next {
-    background: #007bff;
-    color: white;
-  }
-  
-  .loading-text {
-    font-size: 16px;
-    color: #888;
-  }
-  
-
-  .pdf-link {
-  display: inline-block;
-  margin-top: 8px;
-  color: #007bff;
-  text-decoration: underline;
-  font-weight: 500;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24px;
+}
 
+/* ===== DOC CARD ===== */
 .doc-card {
   background-color: #fff;
   border-radius: 12px;
@@ -96,31 +26,386 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.doc-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
 }
 
 .doc-icon {
   font-size: 40px;
   color: #4A90E2;
   margin-top: 6px;
+  flex-shrink: 0;
 }
 
 .doc-details {
   flex: 1;
 }
 
+/* ===== TITLE WITH HTML SUPPORT ===== */
 .doc-title {
   font-size: 22px;
   font-weight: 600;
   color: #222;
   margin-bottom: 12px;
+  line-height: 1.4;
 }
 
+/* HTML Formatting in Title */
+.doc-title strong,
+.doc-title b {
+  font-weight: 700;
+  color: #111;
+}
+
+.doc-title em,
+.doc-title i {
+  font-style: italic;
+}
+
+.doc-title u {
+  text-decoration: underline;
+}
+
+.doc-title a {
+  color: #4A90E2;
+  text-decoration: underline;
+}
+
+.doc-title a:hover {
+  color: #357ABD;
+}
+
+/* ===== DESCRIPTION WITH HTML SUPPORT ===== */
 .doc-description {
   font-size: 16px;
   color: #555;
-  line-height: 1.6;
-  white-space: pre-line;
+  line-height: 1.8;
+  margin-bottom: 16px;
 }
 
+/* HTML Formatting in Description */
+.doc-description strong,
+.doc-description b {
+  font-weight: 700;
+  color: #222;
+}
 
+.doc-description em,
+.doc-description i {
+  font-style: italic;
+}
+
+.doc-description u {
+  text-decoration: underline;
+}
+
+.doc-description s,
+.doc-description strike {
+  text-decoration: line-through;
+}
+
+.doc-description a {
+  color: #4A90E2;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.doc-description a:hover {
+  color: #357ABD;
+}
+
+.doc-description ul,
+.doc-description ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+  text-align: left;
+}
+
+.doc-description ul {
+  list-style-type: disc;
+}
+
+.doc-description ol {
+  list-style-type: decimal;
+}
+
+.doc-description li {
+  margin: 0.5rem 0;
+}
+
+.doc-description blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: #f3f4f6;
+  border-left: 3px solid #4A90E2;
+  font-style: italic;
+}
+
+.doc-description code {
+  background: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.doc-description p {
+  margin: 0.75rem 0;
+}
+
+/* PDF Link */
+.pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 20px;
+  color: #fff;
+  background: #4A90E2;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.pdf-link:hover {
+  background: #357ABD;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.nav-btn {
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn.prev {
+  background: #6c757d;
+  color: white;
+}
+
+.nav-btn.prev:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.nav-btn.next {
+  background: #007bff;
+  color: white;
+}
+
+.nav-btn.next:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.page-indicator-audit {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Loading & No Data */
+.loading-text,
+.no-data-audit {
+  font-size: 16px;
+  color: #888;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* ===== SKELETON LOADER ===== */
+.skeleton-audit-title {
+  height: 32px;
+  width: 300px;
+  margin: 0 auto 24px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+.skeleton-audit-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.skeleton-audit-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #d0d0d0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.skeleton-audit-content {
+  flex: 1;
+}
+
+.skeleton-audit-heading {
+  height: 24px;
+  width: 70%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #d0d0d0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-audit-line {
+  height: 16px;
+  width: 100%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #d0d0d0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeleton-audit-line.short {
+  width: 60%;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .document-viewer {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .doc-card,
+  .skeleton-audit-card {
+    padding: 20px;
+    gap: 12px;
+  }
+
+  .doc-icon,
+  .skeleton-audit-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .doc-title {
+    font-size: 20px;
+  }
+
+  .doc-description {
+    font-size: 15px;
+  }
+
+  .navigation-buttons {
+    gap: 15px;
+  }
+
+  .nav-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .document-viewer {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .doc-card,
+  .skeleton-audit-card {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .doc-icon,
+  .skeleton-audit-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .doc-title {
+    font-size: 18px;
+  }
+
+  .doc-description {
+    font-size: 14px;
+  }
+
+  .pdf-link {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-btn {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .page-indicator-audit {
+    width: 100%;
+    order: -1;
+    margin-bottom: 10px;
+  }
+
+  .skeleton-audit-title {
+    width: 200px;
+    height: 28px;
+  }
+}

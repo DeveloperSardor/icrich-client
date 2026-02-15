@@ -1,3 +1,7 @@
+/* =============================================
+   LOCAL DOCS - WITH HTML SUPPORT
+   ============================================= */
+
 /* Container Styles */
 .document-viewer {
     max-width: 900px;
@@ -7,25 +11,95 @@
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial',
-}
-
-.document-viewer:hover{
-  /* transform:scale(1.3); */
-  /* cursor: pointer; */
+    font-family: 'Arial', sans-serif;
 }
 
 .title {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: #333;
 }
 
-.description {
+/* ===== DESCRIPTION CARD WITH HTML SUPPORT ===== */
+.description-card {
+  background-color: #f6f5f1;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.description-card p {
   font-size: 16px;
   color: #444;
-  line-height: 1.6;
-  margin-bottom: 10px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* HTML Formatting Support - Like ExpeditionPage */
+.description-card p strong,
+.description-card p b {
+  font-weight: 700;
+  color: #222;
+}
+
+.description-card p em,
+.description-card p i {
+  font-style: italic;
+}
+
+.description-card p u {
+  text-decoration: underline;
+}
+
+.description-card p s,
+.description-card p strike {
+  text-decoration: line-through;
+}
+
+.description-card p a {
+  color: #184ba4;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.description-card p a:hover {
+  color: #0f3678;
+}
+
+.description-card p ul,
+.description-card p ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.description-card p ul {
+  list-style-type: disc;
+}
+
+.description-card p ol {
+  list-style-type: decimal;
+}
+
+.description-card p li {
+  margin: 0.5rem 0;
+}
+
+.description-card p blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: #e8e8e8;
+  border-left: 3px solid #000;
+  font-style: italic;
+}
+
+.description-card p code {
+  background: #e8e8e8;
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.9em;
 }
 
 /* PDF File Section */
@@ -54,11 +128,13 @@
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+  color: #222;
 }
 
 .pdf-subtext {
   font-size: 14px;
   color: #888;
+  margin: 5px 0 0;
 }
 
 .pdf-actions {
@@ -73,16 +149,129 @@
   cursor: pointer;
   color: #333;
   transition: color 0.3s ease;
+  padding: 8px;
 }
 
 .icon-button:hover {
   color: #1976d2;
 }
 
+/* Navigation Buttons */
+.navigation-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.navigation-buttons button {
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navigation-buttons button:hover:not(:disabled) {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.navigation-buttons button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.page-indicator {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* No Data Message */
+.no-data {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 18px;
+}
+
+/* Skeleton Loader Styles */
+.skeleton-loader {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.skeleton-title {
+  height: 32px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  width: 250px;
+}
+
+.skeleton-content {
+  height: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.skeleton-pdf {
+  height: 80px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .document-viewer {
     padding: 15px;
+    margin: 20px auto;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .description-card {
+    padding: 20px;
+  }
+
+  .description-card p {
+    font-size: 15px;
   }
 
   .pdf-file {
@@ -90,17 +279,43 @@
     align-items: flex-start;
   }
 
+  .pdf-details {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
   .pdf-actions {
     margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .navigation-buttons {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .navigation-buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
+  .document-viewer {
+    padding: 10px;
+    margin: 15px auto;
+  }
+
   .title {
     font-size: 22px;
   }
 
-  .description {
+  .description-card {
+    padding: 15px;
+  }
+
+  .description-card p {
     font-size: 14px;
   }
 
@@ -108,8 +323,26 @@
     font-size: 28px;
   }
 
+  .pdf-title {
+    font-size: 16px;
+  }
+
   .icon-button {
     font-size: 16px;
   }
+
+  .navigation-buttons button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .page-indicator {
+    width: 100%;
+    order: -1;
+    margin-bottom: 10px;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+  }
 }
-  

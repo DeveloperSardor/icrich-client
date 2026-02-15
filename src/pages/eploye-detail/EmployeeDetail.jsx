@@ -2,19 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
 import Context from '../../context/Context';
 import './employee-detail.css';
-import {
-  Mail,
-  Phone,
-  Briefcase,
-  GraduationCap,
-  Award,
-  Building,
-  ArrowLeft,
-  Globe
-} from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 const EmployeeDetail = () => {
   const { id } = useParams();
@@ -31,21 +21,23 @@ const EmployeeDetail = () => {
 
   useEffect(() => {
     fetchEmployeeData();
-  }, [id]);
+  }, [id, currentLang]);
 
   const fetchEmployeeData = async () => {
     try {
       setLoading(true);
       const { data } = await axios.get(`${BACKEND_URL}/api/leadership/${id}`);
-      console.log('Employee data:', data);
       setEmployee(data.data);
       
       if (data.data.departmentId) {
-        const deptResponse = await axios.get(`${BACKEND_URL}/api/department/${data.data.departmentId}`);
-        setDepartment(deptResponse.data.data);
+        if (typeof data.data.departmentId === 'object') {
+          setDepartment(data.data.departmentId);
+        } else {
+          const deptResponse = await axios.get(`${BACKEND_URL}/api/department/${data.data.departmentId}`);
+          setDepartment(deptResponse.data.data);
+        }
       }
     } catch (error) {
-    //   toast.error(t('error.fetchEmployee') || "Xodim ma'lumotlarini yuklashda xatolik");
       console.error('Error:', error);
     } finally {
       setLoading(false);
@@ -63,164 +55,182 @@ const EmployeeDetail = () => {
   };
 
   const getEmployeeName = (emp) => {
-    if (!emp) return 'Noma\'lum';
+    if (!emp) return '';
     if (emp.name && typeof emp.name === 'object') {
-      return emp.name[currentLang] || emp.name.uz || emp.name.ru || emp.name.en || 'Noma\'lum';
+      return emp.name[currentLang] || emp.name.uz || emp.name.ru || emp.name.en || '';
     }
-    return emp.name || 'Noma\'lum';
+    return emp.name || '';
+  };
+
+  const getLabel = (key) => {
+    const labels = {
+      position: { uz: 'Lavozim:', ru: 'Должность:', en: 'Position:' },
+      department: { uz: 'Bo\'lim:', ru: 'Отдел:', en: 'Department:' },
+      birthDate: { uz: 'Tug\'ilgan sanasi:', ru: 'Дата рождения:', en: 'Date of Birth:' },
+      birthPlace: { uz: 'Tug\'ilgan joyi:', ru: 'Место рождения:', en: 'Place of Birth:' },
+      education: { uz: 'Ta\'lim:', ru: 'Образование:', en: 'Education:' },
+      workHistory: { uz: 'Mehnat faoliyati:', ru: 'Трудовая деятельность:', en: 'Work History:' },
+      degree: { uz: 'Ilmiy daraja:', ru: 'Ученая степень:', en: 'Academic Degree:' },
+      interests: { uz: 'Ilmiy qiziqishlar:', ru: 'Область интересов:', en: 'Research Interests:' },
+      research: { uz: 'Tadqiqotlar:', ru: 'Полевые исследования:', en: 'Field Research:' },
+      membership: { uz: 'A\'zolik:', ru: 'Членство в обществах:', en: 'Memberships:' },
+      awards: { uz: 'Mukofotlar:', ru: 'Награды:', en: 'Awards:' },
+      contact: { uz: 'Aloqa:', ru: 'Контакты:', en: 'Contact:' },
+      email: { uz: 'Email:', ru: 'Email:', en: 'Email:' },
+      phone: { uz: 'Telefon:', ru: 'Телефон:', en: 'Phone:' },
+      back: { uz: 'Orqaga', ru: 'Назад', en: 'Back' },
+      loading: { uz: 'Yuklanmoqda...', ru: 'Загрузка...', en: 'Loading...' },
+      notFound: { uz: 'Xodim topilmadi', ru: 'Сотрудник не найден', en: 'Employee not found' }
+    };
+    return labels[key]?.[currentLang] || labels[key]?.uz || '';
   };
 
   if (loading) {
     return (
-      <div className="emp-loading-container">
-        <div className="emp-loading-spinner"></div>
-        <p className="emp-loading-text">{t('loading') || 'Yuklanmoqda...'}</p>
+      <div className="emp-loading">
+        <div className="emp-spinner"></div>
+        <p>{getLabel('loading')}</p>
       </div>
     );
   }
 
   if (!employee) {
     return (
-      <div className="emp-not-found">
-        <p className="emp-not-found-text">Xodim topilmadi</p>
-        <button onClick={() => navigate(-1)} className="emp-back-btn">
-          Orqaga qaytish
+      <div className="emp-loading">
+        <p>{getLabel('notFound')}</p>
+        <button onClick={() => navigate(-1)} className="emp-btn-back">
+          {getLabel('back')}
         </button>
       </div>
     );
   }
 
   return (
-    <div className="emp-detail-page">
-      <div className="emp-container">
-        <button onClick={() => navigate(-1)} className="emp-back-link">
-          <ArrowLeft className="emp-back-icon" />
-          <span>Orqaga</span>
+    <div className="emp-page">
+      <div className="emp-wrapper">
+        
+        {/* Back Button */}
+        <button onClick={() => navigate(-1)} className="emp-nav-back">
+          <ArrowLeft size={16} />
+          <span>{getLabel('back')}</span>
         </button>
 
-        <div className="emp-card">
-          {/* Header */}
-          <div className="emp-header">
-            <div className="emp-avatar-wrapper">
-              <div className="emp-avatar">
-                <img
-                  src={employee.img || '/placeholder-avatar.jpg'}
-                  alt={getEmployeeName(employee)}
-                  onError={(e) => e.target.src = 'https://via.placeholder.com/220x220/6366f1/ffffff?text=User'}
-                />
-              </div>
+        {/* Main Content */}
+        <div className="emp-content-box">
+          
+          {/* Name Title */}
+          <h1 className="emp-title">{getEmployeeName(employee).toUpperCase()}</h1>
+
+          {/* Layout: Photo + Content */}
+          <div className="emp-layout">
+            
+            {/* Photo */}
+            <div className="emp-photo-box">
+              <img
+                src={employee.img || 'https://via.placeholder.com/220x280/cccccc/333333?text=Photo'}
+                alt={getEmployeeName(employee)}
+                onError={(e) => e.target.src = 'https://via.placeholder.com/220x280/cccccc/333333?text=Photo'}
+              />
             </div>
 
-            <div className="emp-header-info">
-              <h1 className="emp-name">{getEmployeeName(employee)}</h1>
+            {/* Text Content */}
+            <div className="emp-text-content">
+              
+              {/* Position & Department */}
+              {getText(employee, 'position') && (
+                <p className="emp-paragraph">
+                  {getText(employee, 'position')}
+                  {department && `, ${getText(department, 'title')}`}
+                </p>
+              )}
 
-              <div className="emp-badges">
-                <div className="emp-badge emp-badge-position">
-                  <Briefcase size={18} />
-                  <span>{getText(employee, 'position') || 'Lavozim'}</span>
-                </div>
+              {/* Academic Degree */}
+              {employee.academicDegree && (
+                <p className="emp-paragraph">
+                  <strong>{getLabel('degree')}</strong> {employee.academicDegree}
+                </p>
+              )}
 
-                {department && (
-                  <div className="emp-badge emp-badge-dept">
-                    <Building size={18} />
-                    <span>{getText(department, 'title')}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="emp-content">
-            {/* Contact */}
-            {(employee.email || employee.phone) && (
-              <section className="emp-section">
-                <h2 className="emp-section-title">
-                  <div className="emp-section-icon emp-icon-mail">
-                    <Mail size={20} />
-                  </div>
-                  {currentLang === 'uz' ? "Aloqa ma'lumotlari" : currentLang === 'ru' ? 'Контактная информация' : 'Contact Information'}
-                </h2>
-
-                <div className="emp-contact-grid">
-                  {employee.email && (
-                    <a href={`mailto:${employee.email}`} className="emp-contact-item">
-                      <div className="emp-contact-icon emp-contact-icon-email">
-                        <Mail size={20} />
-                      </div>
-                      <div>
-                        <div className="emp-contact-label">Email</div>
-                        <div className="emp-contact-value">{employee.email}</div>
-                      </div>
-                    </a>
-                  )}
-
-                  {employee.phone && (
-                    <a href={`tel:${employee.phone}`} className="emp-contact-item">
-                      <div className="emp-contact-icon emp-contact-icon-phone">
-                        <Phone size={20} />
-                      </div>
-                      <div>
-                        <div className="emp-contact-label">
-                          {currentLang === 'uz' ? 'Telefon' : currentLang === 'ru' ? 'Телефон' : 'Phone'}
-                        </div>
-                        <div className="emp-contact-value">{employee.phone}</div>
-                      </div>
-                    </a>
-                  )}
-                </div>
-              </section>
-            )}
-
-            {/* Bio */}
-            {getText(employee, 'bio') && (
-              <section className="emp-section">
-                <h2 className="emp-section-title">
-                  <div className="emp-section-icon emp-icon-award">
-                    <Award size={20} />
-                  </div>
-                  {currentLang === 'uz' ? 'Biografiya' : currentLang === 'ru' ? 'Биография' : 'Biography'}
-                </h2>
+              {/* Bio (React Quill HTML) */}
+              {getText(employee, 'bio') && (
                 <div className="emp-bio">
-                  <p>{getText(employee, 'bio')}</p>
+                  <div dangerouslySetInnerHTML={{ __html: getText(employee, 'bio') }} />
                 </div>
-              </section>
-            )}
+              )}
 
-            {/* Academic Degree */}
-            {employee.academicDegree && (
-              <section className="emp-section">
-                <h2 className="emp-section-title">
-                  <div className="emp-section-icon emp-icon-graduation">
-                    <GraduationCap size={20} />
-                  </div>
-                  {currentLang === 'uz' ? 'Ilmiy daraja' : currentLang === 'ru' ? 'Ученая степень' : 'Academic Degree'}
-                </h2>
-                <div className="emp-degree">
-                  <p>{employee.academicDegree}</p>
+              {/* Education (React Quill HTML) */}
+              {getText(employee, 'education') && (
+                <div className="emp-section">
+                  <h2 className="emp-section-heading">{getLabel('education')}</h2>
+                  <div 
+                    className="emp-section-content"
+                    dangerouslySetInnerHTML={{ __html: getText(employee, 'education') }}
+                  />
                 </div>
-              </section>
-            )}
+              )}
 
-            {/* Scientific Interests */}
-            {Array.isArray(employee.scientificInterests) && employee.scientificInterests.length > 0 && (
-              <section className="emp-section">
-                <h2 className="emp-section-title">
-                  <div className="emp-section-icon emp-icon-globe">
-                    <Globe size={20} />
-                  </div>
-                  {currentLang === 'uz' ? 'Ilmiy qiziqishlar' : currentLang === 'ru' ? 'Научные интересы' : 'Scientific Interests'}
-                </h2>
-                <div className="emp-interests">
-                  {employee.scientificInterests.map((interest, idx) => (
-                    <div key={idx} className="emp-interest-item">
-                      <div className="emp-interest-dot"></div>
-                      <p>{interest}</p>
-                    </div>
-                  ))}
+              {/* Work History */}
+              {Array.isArray(employee.workHistory) && employee.workHistory.length > 0 && (
+                <div className="emp-section">
+                  <h2 className="emp-section-heading">{getLabel('workHistory')}</h2>
+                  {employee.workHistory.map((work, idx) => {
+                    const workText = getText({ text: work }, 'text');
+                    return (
+                      <div 
+                        key={idx} 
+                        className="emp-section-content"
+                        dangerouslySetInnerHTML={{ __html: workText }}
+                      />
+                    );
+                  })}
                 </div>
-              </section>
-            )}
+              )}
+
+              {/* Research Interests */}
+              {Array.isArray(employee.scientificInterests) && employee.scientificInterests.length > 0 && (
+                <div className="emp-section">
+                  <h2 className="emp-section-heading">{getLabel('interests')}</h2>
+                  <p className="emp-paragraph">
+                    {employee.scientificInterests.join(', ')}
+                  </p>
+                </div>
+              )}
+
+              {/* Awards */}
+              {Array.isArray(employee.awards) && employee.awards.length > 0 && (
+                <div className="emp-section">
+                  <h2 className="emp-section-heading">{getLabel('awards')}</h2>
+                  {employee.awards.map((award, idx) => {
+                    const awardText = getText({ text: award }, 'text');
+                    return (
+                      <div 
+                        key={idx} 
+                        className="emp-section-content"
+                        dangerouslySetInnerHTML={{ __html: awardText }}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Contact */}
+              {(employee.email || employee.phone) && (
+                <div className="emp-section">
+                  <h2 className="emp-section-heading">{getLabel('contact')}</h2>
+                  {employee.email && (
+                    <p className="emp-paragraph">
+                      <strong>{getLabel('email')}</strong> {employee.email}
+                    </p>
+                  )}
+                  {employee.phone && (
+                    <p className="emp-paragraph">
+                      <strong>{getLabel('phone')}</strong> {employee.phone}
+                    </p>
+                  )}
+                </div>
+              )}
+
+            </div>
           </div>
         </div>
       </div>
