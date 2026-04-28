@@ -83,4 +83,16 @@
   "enterYourMessage": "Xabaringizni yozing",
   "submit": "Yuborish",
   "ourLocation": "Manzilimiz",
-  "findUsOnMap": "Xaritadan toping"}
+  "findUsOnMap": "Xaritadan toping",
+  "noNews": "Hozircha yangiliklar yo'q",
+  "announcements": {
+    "noContent": "Hozircha e'lonlar yo'q",
+    "comingSoon": "Tez orada bu yerda e'lonlar paydo bo'ladi."
+  },
+  "error": {
+    "fetchNews": "Yangiliklarni yuklashda xatolik",
+    "fetchDocuments": "Hujjatlarni yuklashda xatolik",
+    "fetchDepartments": "Bo'limlarni yuklashda xatolik",
+    "fetchAnnouncements": "E'lonlarni yuklashda xatolik"
+  }
+}

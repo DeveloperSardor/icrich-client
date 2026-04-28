@@ -17,19 +17,39 @@ const Rahbariyat = () => {
   const contextDatas = useContext(Context);
   const currentLang = contextDatas.currentLang || 'uz';
 
-  // Fetch leadership data
+  // Fetch leadership data (query endpoint — /role/leadership ba'zi deploylarda 404 berishi mumkin)
   const fetchLeaders = async () => {
+    const base = (BACKEND_URL || "").replace(/\/+$/, "");
+    if (!base) {
+      setError("VITE_BACKEND_URL sozlanmagan");
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
-      
-      const { data } = await axios.get(`${BACKEND_URL}/api/leadership/role/leadership`);
-      
-      const activeLeaders = data.data.filter(leader => leader.isActive);
-      setLeaders(activeLeaders);
-    } catch (error) {
-      console.error("Error fetching leadership data:", error.message);
-      setError(error.message);
+
+      const { data } = await axios.get(`${base}/api/leadership`, {
+        params: {
+          role: "leadership",
+          isActive: true,
+          limit: 200,
+          page: 1,
+        },
+        timeout: 25_000,
+      });
+
+      const rows = Array.isArray(data?.data) ? data.data : [];
+      setLeaders(rows.filter((leader) => leader.isActive !== false));
+    } catch (err) {
+      const status = err.response?.status;
+      const msg =
+        status === 404
+          ? "Ma'lumot topilmadi (404)"
+          : err.response?.data?.message || err.message || "So'rov xatosi";
+      console.error("Error fetching leadership data:", msg);
+      setError(msg);
     } finally {
       setLoading(false);
     }

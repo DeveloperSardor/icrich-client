@@ -40,11 +40,21 @@ body {
     border-radius: 8px;
   }
   
-  .announcement-content p {
+  .announcement-content p,
+  .announcement-body {
     font-size: 1rem;
     line-height: 1.6;
     color: #333;
+  }
+
+  .announcement-content p,
+  .announcement-body p {
     margin-bottom: 15px;
+  }
+
+  .announcement-body a {
+    color: #1d4ed8;
+    word-break: break-word;
   }
   
   .recommendations {

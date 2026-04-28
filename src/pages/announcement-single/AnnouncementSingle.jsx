@@ -50,7 +50,12 @@ const AnnouncementSingle = () => {
           src={announcement.img}
           alt={announcement[`title_${currentLang}`]}
         />
-        <p>{announcement[`desc_${currentLang}`]}</p>
+        <div
+          className="announcement-body"
+          dangerouslySetInnerHTML={{
+            __html: announcement[`desc_${currentLang}`] || "",
+          }}
+        />
       </div>
       <aside className="recommendations">
         <h2>{t('recommended')}</h2>

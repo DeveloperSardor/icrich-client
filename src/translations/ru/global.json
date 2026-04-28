@@ -84,6 +84,16 @@
   "enterYourMessage": "Введите ваше сообщение",
   "submit": "Отправить",
   "ourLocation": "Наш адрес",
-  "findUsOnMap": "Найти нас на карте"
-
+  "findUsOnMap": "Найти нас на карте",
+  "noNews": "Пока нет новостей",
+  "announcements": {
+    "noContent": "Объявлений пока нет",
+    "comingSoon": "Скоро здесь появятся объявления."
+  },
+  "error": {
+    "fetchNews": "Не удалось загрузить новости",
+    "fetchDocuments": "Не удалось загрузить документы",
+    "fetchDepartments": "Не удалось загрузить отделы",
+    "fetchAnnouncements": "Не удалось загрузить объявления"
+  }
 }

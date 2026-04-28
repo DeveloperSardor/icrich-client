@@ -84,6 +84,16 @@
   "enterYourMessage": "Enter your message",
   "submit": "Submit",
   "ourLocation": "Our Location",
-  "findUsOnMap": "Find Us On Map"
-
+  "findUsOnMap": "Find Us On Map",
+  "noNews": "No news yet",
+  "announcements": {
+    "noContent": "No announcements yet",
+    "comingSoon": "Announcements will appear here soon."
+  },
+  "error": {
+    "fetchNews": "Could not load news",
+    "fetchDocuments": "Could not load documents",
+    "fetchDepartments": "Could not load departments",
+    "fetchAnnouncements": "Could not load announcements"
+  }
 }

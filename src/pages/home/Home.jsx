@@ -46,7 +46,7 @@ const Home = () => {
       const { data } = await axios.get(`${BACKEND_URL}/api/news`);
       setNews(data.data || []);
     } catch (error) {
-      toast.error(t("error.fetchNews"));
+      toast.error(t("error.fetchNews", { defaultValue: "Yangiliklarni yuklashda xatolik" }));
       console.error("Error fetching news:", error.message);
     }
   };
@@ -56,7 +56,7 @@ const Home = () => {
       const { data } = await axios.get(`${BACKEND_URL}/api/docs`);
       setDocuments(data.data || []);
     } catch (error) {
-      toast.error(t("error.fetchDocuments"));
+      toast.error(t("error.fetchDocuments", { defaultValue: "Hujjatlarni yuklashda xatolik" }));
       console.error("Error fetching documents:", error.message);
     }
   };
@@ -66,7 +66,7 @@ const Home = () => {
       const { data } = await axios.get(`${BACKEND_URL}/api/department?limit=100`);
       setDepartments(data.data || []);
     } catch (error) {
-      toast.error(t("error.fetchDepartments"));
+      toast.error(t("error.fetchDepartments", { defaultValue: "Bo'limlarni yuklashda xatolik" }));
       console.error("Error fetching departments:", error.message);
     }
   };
@@ -76,7 +76,7 @@ const Home = () => {
       const { data } = await axios.get(`${BACKEND_URL}/api/announcement`);
       setAnnouncements(data.data || []);
     } catch (error) {
-      toast.error(t("error.fetchAnnouncements"));
+      toast.error(t("error.fetchAnnouncements", { defaultValue: "E'lonlarni yuklashda xatolik" }));
       console.error("Error fetching announcements:", error.message);
     }
   };
@@ -214,7 +214,7 @@ const Home = () => {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p className="loading-text">{t("loading") || "Yuklanmoqda..."}</p>
+        <p className="loading-text">{t("loading", { defaultValue: "Yuklanmoqda..." })}</p>
       </div>
     );
   }
@@ -231,14 +231,14 @@ const Home = () => {
       {/* News */}
       <div className="news_section">
         <div className="container_">
-          <h2 className="heading">{t("navbar.news.news") || "Yangiliklar"}</h2>
+          <h2 className="heading">{t("navbar.news.news", { defaultValue: "Yangiliklar" })}</h2>
           <div className="news_wrp">
             {currentNews.length > 0 ? (
               currentNews.map((item) => <NewsCard key={item._id} data={item} />)
             ) : (
               <div className="no-news-message">
                 <FileText size={48} className="no-content-icon" />
-                <p>{t("noNews") || "Yangiliklar topilmadi"}</p>
+                <p>{t("noNews", { defaultValue: "Yangiliklar topilmadi" })}</p>
               </div>
             )}
           </div>
@@ -266,7 +266,7 @@ const Home = () => {
       <div className="announcements_section">
         <div className="container_">
           <div className="section_header">
-            <h2 className="heading">{t("navbar.news.announcements") || "E'lonlar"}</h2>
+            <h2 className="heading">{t("navbar.news.announcements", { defaultValue: "E'lonlar" })}</h2>
             {/* <div className="section_subtitle"><span>{t('navbar.news.latestAnnouncements')}</span></div> */}
           </div>
           {announcements.length > 0 ? (
@@ -298,8 +298,8 @@ const Home = () => {
           ) : (
             <div className="no_content_message">
               <div className="empty_icon"><Calendar size={48} /></div>
-              <h3 className="empty_title">{t("announcements.noContent")}</h3>
-              <p className="empty_subtitle">{t("announcements.comingSoon")}</p>
+              <h3 className="empty_title">{t("announcements.noContent", { defaultValue: "Hozircha e'lonlar yo'q" })}</h3>
+              <p className="empty_subtitle">{t("announcements.comingSoon", { defaultValue: "Tez orada yangi e'lonlar chiqadi." })}</p>
             </div>
           )}
         </div>
@@ -312,7 +312,7 @@ const Home = () => {
       <div className="map">
         <div className="container_">
           <div className="map-header">
-            <h2><MapPin size={20} />{t("ourLocation")}</h2>
+            <h2><MapPin size={20} />{t("ourLocation", { defaultValue: "Manzilimiz" })}</h2>
             {/* <p>{t("findUsOnMap")}</p> */}
           </div>
           <iframe src="https://yandex.uz/map-widget/v1/-/CHQrFz4nT" width="100%" height="400px" frameBorder="0" title="Map" allowFullScreen loading="lazy" />
