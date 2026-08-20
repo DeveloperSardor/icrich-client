@@ -86,12 +86,19 @@ const Rahbariyat = () => {
 
   // Format schedule days
   const formatSchedule = (schedule) => {
-    if (!schedule || !schedule.days || schedule.days.length === 0) {
-      return currentLang === 'en' 
-        ? "By appointment" 
-        : currentLang === 'ru' 
-        ? "По записи" 
+    const hasDays = schedule && schedule.days && schedule.days.length > 0;
+    const hasDates = schedule && schedule.dates && schedule.dates.length > 0;
+
+    if (!hasDays && !hasDates) {
+      return currentLang === 'en'
+        ? "By appointment"
+        : currentLang === 'ru'
+        ? "По записи"
         : "Oldindan kelishilgan holda";
+    }
+
+    if (!hasDays && hasDates) {
+      return schedule.dates.join(", ");
     }
 
     const daysMap = {
@@ -128,7 +135,9 @@ const Rahbariyat = () => {
       daysMap[currentLang][day.toLowerCase()] || day
     );
 
-    return translatedDays.join(", ");
+    return hasDates
+      ? `${translatedDays.join(", ")} (${schedule.dates.join(", ")})`
+      : translatedDays.join(", ");
   };
 
   // Format time
