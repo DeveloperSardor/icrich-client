@@ -254,7 +254,7 @@ const NewsSinglePage = () => {
                 <circle cx="12" cy="12" r="10"/>
                 <polyline points="12 6 12 12 16 14"/>
               </svg>
-              <span>{formatDate(news.createdAt)}</span>
+              <span>{formatDate(news.date || news.createdAt)}</span>
             </div>
             <span className="meta-separator"></span>
             <div className="meta-item">

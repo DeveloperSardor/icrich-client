@@ -22,7 +22,7 @@ const NewsPage = () => {
         setLoading(true);
         const { data } = await axios.get(`${BACKEND_URL}/api/news`);
         const sortedNews = data?.data?.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          (a, b) => new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt)
         );
         setNews(sortedNews || []);
       } catch (error) {

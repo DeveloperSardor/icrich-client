@@ -43,7 +43,7 @@ const AnnouncementSingle = () => {
         <h1>{announcement[`title_${currentLang}`]}</h1>
         <div className="announcement-meta">
           {/* <span>O'zbekiston</span> */}
-          <span>{new Date(announcement.createdAt).toLocaleDateString()}</span>
+          <span>{new Date(announcement.date || announcement.createdAt).toLocaleDateString()}</span>
         </div>
         <img
           className="announcement-image"
@@ -63,7 +63,7 @@ const AnnouncementSingle = () => {
           {recommended.map((rec) => (
             <li key={rec._id}>
             <Link to={`/announcements/${rec._id}`} style={{ textDecoration : 'none' }}>
-              <span>{new Date(rec.createdAt).toLocaleDateString()}</span>
+              <span>{new Date(rec.date || rec.createdAt).toLocaleDateString()}</span>
               <p>{rec[`title_${currentLang}`]}</p>
             </Link>
             </li>

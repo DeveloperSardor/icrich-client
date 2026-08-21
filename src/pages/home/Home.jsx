@@ -280,7 +280,7 @@ const Home = () => {
                         {/* <div className="image_overlay"><div className="new_badge">Yangi</div></div> */}
                       </div>
                       <div className="card_content">
-                        <time className="card_date">{formatDate(ann.createdAt)}</time>
+                        <time className="card_date">{formatDate(ann.date || ann.createdAt)}</time>
                         <h3 className="card_title">{truncateText(ann[`title_${currentLang}`], 70)}</h3>
                         <p className="card_description">{truncateText(ann[`desc_${currentLang}`], 100)}</p>
                         <div className="card_footer">

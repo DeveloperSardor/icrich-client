@@ -23,7 +23,7 @@ const AnnouncementsPage = () => {
         const response = await axios.get(`${BACKEND_URL}/api/announcement`);
         if (response.data.success) {
           const sortedAnnouncements = response.data.data.sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            (a, b) => new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt)
           );
           setAnnouncements(sortedAnnouncements);
         } else {
@@ -144,7 +144,7 @@ const AnnouncementsPage = () => {
               <div className="ann_card_content">
                 <div className="ann_card_meta">
                   <span className="ann_card_date">
-                    {new Date(announcement.createdAt).toLocaleDateString(
+                    {new Date(announcement.date || announcement.createdAt).toLocaleDateString(
                       currentLang === 'ru'
                         ? 'ru-RU'
                         : currentLang === 'en'
