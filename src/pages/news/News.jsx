@@ -145,22 +145,26 @@ const NewsPage = () => {
               {/* Media */}
               <div className="news-media-container">
                 {item.files?.length > 0 ? (
-                  <img 
-                    src={item.files[0].link} 
-                    alt={title} 
-                    className="news-image" 
+                  <img
+                    src={item.files[0].link}
+                    alt={title}
+                    className="news-image"
                     loading="lazy"
                   />
                 ) : videoID ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${videoID}`}
-                    title={title}
-                    className="news-video"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                  <>
+                    <img
+                      src={`https://img.youtube.com/vi/${videoID}/hqdefault.jpg`}
+                      alt={title}
+                      className="news-image"
+                      loading="lazy"
+                    />
+                    <span className="news-play-button" aria-hidden="true">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </>
                 ) : (
                   <div className="news-placeholder">
                     {currentLang === "uz" 

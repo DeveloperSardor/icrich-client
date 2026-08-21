@@ -71,22 +71,26 @@ const NewsCard = ({ data }) => {
       {/* Media Container */}
       <div className="news_card_media_container">
         {files?.length > 0 ? (
-          <img 
-            src={files[0].link} 
-            alt={getTitle()} 
-            className="news_card_image" 
+          <img
+            src={files[0].link}
+            alt={getTitle()}
+            className="news_card_image"
             loading="lazy"
           />
         ) : videoID ? (
-          <iframe
-            src={`https://www.youtube.com/embed/${videoID}`}
-            title={getTitle()}
-            className="news_card_video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-          />
+          <>
+            <img
+              src={`https://img.youtube.com/vi/${videoID}/hqdefault.jpg`}
+              alt={getTitle()}
+              className="news_card_image"
+              loading="lazy"
+            />
+            <span className="news_card_play_button" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+          </>
         ) : (
           <div className="news_card_placeholder">
             {currentLang === "uz" 

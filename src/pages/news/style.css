@@ -74,8 +74,7 @@
 }
 
 /* ===== MEDIA - Yaxshilangan ===== */
-.news-image,
-.news-video {
+.news-image {
   width: 100%;
   height: 220px;
   object-fit: cover;
@@ -84,6 +83,32 @@
 
 .news-card:hover .news-image {
   transform: scale(1.08);
+}
+
+.news-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(24, 75, 164, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.news-play-button svg {
+  margin-left: 2px;
+}
+
+.news-card:hover .news-play-button {
+  background: #184ba4;
+  transform: translate(-50%, -50%) scale(1.08);
 }
 
 .news-placeholder {
@@ -321,7 +346,6 @@
   }
 
   .news-image,
-  .news-video,
   .news-placeholder {
     height: 200px;
   }
