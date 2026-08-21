@@ -154,12 +154,11 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  flex-grow: 1;
 }
 
 /* ===== BUTTON - Gradient dizayn ===== */
 .news-button {
-  margin: auto 1.25rem 1.25rem;
+  margin: 0 1.25rem 1.25rem;
   padding: 10px 24px;
   background: linear-gradient(135deg, #184ba4 0%, #2563eb 100%);
   color: #ffffff;
